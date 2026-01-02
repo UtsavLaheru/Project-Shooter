@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgesl1cetkga8"]
+
+[ext_resource type="PackedScene" uid="uid://cwaplki22gce7" path="res://circle_enemy's.tscn" id="1_k5iy3"]
+[ext_resource type="Script" uid="uid://br2rft3g5c6yg" path="res://circle_pattern.gd" id="1_yrj5t"]
+
+[sub_resource type="Curve2D" id="Curve2D_k5iy3"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 237, 83, 1.1056132, -3.1939938, -1.1056132, 3.1939938, 182, 102, 0, 0, 0, 0, 156, 132, 0, 0, 0, 0, 118, 214, -2.2387934, -8.844664, 2.2387934, 8.844664, 121, 325, 0, 0, 0, 0, 141, 419, -11.899488, -0.14493912, 11.899488, 0.14493912, 206, 523, 2.824228, 0.29728717, -2.824228, -0.29728717, 482, 521, 0, 0, 0, 0, 548, 460, 0.35049385, 5.6079016, -0.35049385, -5.6079016, 574, 300, 0, 0, 0, 0, 533, 144, 0, 0, 0, 0, 479, 111, 1.7220476, 2.8169513, -1.7220476, -2.8169513, 418, 82, 0, 0, 0, 0, 342, 74, 0, 0, 0, 0, 237, 83)
+}
+point_count = 15
+
+[node name="Circle_Pattern" type="Node2D"]
+script = ExtResource("1_yrj5t")
+speed = 0.2
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_k5iy3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(237, 83)
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
+position = Vector2(118.44159, 252.61223)
+progress = 227.08601
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D2" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
+position = Vector2(168.78305, 470.49716)
+progress = 454.17203
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D3" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D4" type="PathFollow2D" parent="Path2D"]
+position = Vector2(443.7232, 521.4413)
+progress = 756.95337
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D4" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D5" type="PathFollow2D" parent="Path2D"]
+position = Vector2(551.84894, 437.34146)
+progress = 908.34406
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D5" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D6" type="PathFollow2D" parent="Path2D"]
+position = Vector2(571.2346, 288.05908)
+progress = 1059.7347
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D6" instance=ExtResource("1_k5iy3")]
+
+[node name="PathFollow2D7" type="PathFollow2D" parent="Path2D"]
+position = Vector2(465.5264, 104.98849)
+progress = 1286.8208
+rotates = false
+
+[node name="Circle_Enemy" parent="Path2D/PathFollow2D7" instance=ExtResource("1_k5iy3")]
