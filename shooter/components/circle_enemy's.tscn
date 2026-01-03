@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwaplki22gce7"]
+[gd_scene load_steps=9 format=3 uid="uid://cwaplki22gce7"]
 
 [ext_resource type="Script" uid="uid://bpq7j02edlyke" path="res://components/circle_enemy.gd" id="1_rs0mg"]
 [ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_r0xjd"]
 [ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_60m4d"]
 [ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_5j7hy"]
+[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="5_64s1o"]
+[ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="6_fwpef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
 size = Vector2(124, 123)
@@ -27,7 +29,6 @@ texture = ExtResource("2_r0xjd")
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Health_Component" parent="." instance=ExtResource("3_60m4d")]
-position = Vector2(334, 186)
 Max_Health = 10
 
 [node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_5j7hy")]
@@ -37,4 +38,12 @@ health_component = NodePath("../Health_Component")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_epg4t")
 
+[node name="PickupSpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("5_64s1o")
+available_pickups = Array[PackedScene]([ExtResource("6_fwpef")])
+pickup_probabilities = Array[float]([0.25])
+no_pickup_probability = 0.75
+metadata/_custom_type_script = "uid://s5errwc15cyb"
+
+[connection signal="destroyed" from="Health_Component" to="PickupSpawnerComponent" method="spawn_pickup"]
 [connection signal="area_entered" from="Hitbox_Component" to="." method="_on_hitbox_component_area_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqc37amdkehp2"]
 
-[ext_resource type="Script" uid="uid://siq8e2wxfu6t" path="res://levels/invincibility_pickup.gd" id="1_7culd"]
+[ext_resource type="Script" uid="uid://siq8e2wxfu6t" path="res://components/invincibility_pickup.gd" id="1_7culd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ycdb"]
 

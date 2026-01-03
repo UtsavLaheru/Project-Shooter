@@ -41,7 +41,7 @@ shape = SubResource("RectangleShape2D_80nbo")
 health_component = NodePath("../Player_Health_Component")
 on_hit_invincibility_period = 1.0
 sprite = NodePath("../Icon")
-invincibility_flash_colour = Color(0.8247281, 0.2409682, 0.26656383, 1)
+invincibility_flash_colour = Color(0.39, 0.39, 0.39, 1)
 invincibility_flash_per_second = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
@@ -60,3 +60,5 @@ energy = 4.0
 texture = ExtResource("5_1kub6")
 texture_scale = 6.0
 height = 8.0
+
+[connection signal="destroyed" from="Player_Health_Component" to="." method="_on_player_health_component_destroyed"]

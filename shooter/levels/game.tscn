@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
 [ext_resource type="AudioStream" uid="uid://bjsxw87bhcr1r" path="res://audio/big_explode.tres" id="10_y7kp8"]
 [ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="11_5ycdb"]
-[ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="11_ughyh"]
+[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="13_yyd14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
 size = Vector2(32, 32)
@@ -89,8 +89,9 @@ pickupStream = ExtResource("11_5ycdb")
 maxSfxSpeedFactor = 1.02
 minSfxSpeedFactor = 0.98
 
-[node name="invincibility_pickup" parent="." instance=ExtResource("11_ughyh")]
-position = Vector2(491, 510)
+[node name="pickup_spawner_component" type="Node2D" parent="."]
+script = ExtResource("13_yyd14")
+pickup_probabilities = Array[float]([0.0])
 
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

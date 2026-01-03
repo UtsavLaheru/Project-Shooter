@@ -14,7 +14,7 @@ var random_spawn2
 var CanSpawn: bool = true
 var parent_name
 var super_parent
-
+var player:Player
 @export var Spawn_Delay: float = 5
 
 func _ready() -> void:
@@ -23,9 +23,10 @@ func _ready() -> void:
 	max_Spawn_Point = $Spawn_Point/max_Spawn_Point.position.x
 	patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
 	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
+	player = $Player
 
 func _process(delta: float) -> void:
-	if $Player != null:
+	if player != null:
 		Spawn()
 	#print(x_axis)
 	
