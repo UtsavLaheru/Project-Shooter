@@ -1,29 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=9 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
-[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="3_30w35"]
+[ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
+[ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_od3m6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
 size = Vector2(32, 32)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cnc74"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cnc74"]
+diffuse_texture = ExtResource("5_30w35")
+normal_texture = ExtResource("6_cnc74")
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_vhr6a")
 Spawn_Delay = 10.0
 
 [node name="Player" parent="." instance=ExtResource("2_vhr6a")]
-position = Vector2(247, 258)
+position = Vector2(268, 381)
 Bullet = ExtResource("2_748nt")
+
+[node name="PointLight2D-spotlight" parent="Player" index="5"]
+position = Vector2(0, -308)
 
 [node name="Timer" type="Timer" parent="Player"]
 
 [node name="Shoot_Point" type="Marker2D" parent="Player"]
 position = Vector2(0, -145)
-
-[node name="Enemy" parent="." instance=ExtResource("3_30w35")]
-process_mode = 4
-position = Vector2(112, 69)
 
 [node name="Spawn_Point" type="Node2D" parent="."]
 position = Vector2(0, -200)
@@ -48,9 +54,23 @@ position = Vector2(400, 0)
 [node name="Pickup" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup"]
-shape = SubResource("RectangleShape2D_od3m6")
+shape = SubResource("RectangleShape2D_vhr6a")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pickup"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -2
+repeat_size = Vector2(1024, 1024)
+autoscroll = Vector2(0, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+material = SubResource("CanvasItemMaterial_cnc74")
+position = Vector2(512, 512)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("CanvasTexture_cnc74")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.45490196, 0.5372549, 0.6901961, 1)
 
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
