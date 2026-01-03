@@ -1,74 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0d3n68s8wabo"]
 
+[ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="3_30w35"]
-
-[sub_resource type="GDScript" id="GDScript_od3m6"]
-script/source = "extends Node2D
-
-var x_axis : int
-var patterns_x_axis : int
-@export var Enemy:PackedScene = preload(\"res://components/enemy.tscn\")
-@export var Circle_Pattern_enemy:PackedScene = preload(\"res://components/Circle_Pattern.tscn\")
-var min_Spawn_Point
-var max_Spawn_Point
-var patterns_min_Spawn_Point
-var patterns_max_Spawn_Point
-var choice
-var random_spawn
-var random_spawn2
-var CanSpawn: bool = true
-@export var Spawn_Delay: float = 5
-
-func _ready() -> void:
-    print(\"Keep Going, Keep Going, We'll Keep fight On and On and On\")
-    min_Spawn_Point = $Spawn_Point/min_Spawn_Point.position.x
-    max_Spawn_Point = $Spawn_Point/max_Spawn_Point.position.x
-    patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
-    patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
-
-func _process(delta: float) -> void:
-    #x_axis = randi_range(min_Spawn_Point,max_Spawn_Point)
-    #random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
-    patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
-    random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
-    #choice = randi_range(0,3)
-    choice = 1
-    #patterns_x_axis = patterns_min_Spawn_Point
-    #random_spawn2 = Vector2(patterns_x_axis, $Pattern_Spawn_Point.position.y)
-    Spawn()
-    #print(x_axis)
-    
-func Spawn():
-    if CanSpawn == true:
-        if choice == 0:
-            var enemy = Enemy.instantiate()
-            get_node(\".\").add_child(enemy)
-            Delay()
-            enemy.global_position = random_spawn
-        elif choice == 1:
-            var circle_pattern = Circle_Pattern_enemy.instantiate()
-            get_node(\".\").add_child(circle_pattern)
-            Delay()
-            circle_pattern.global_position = random_spawn2
-            print(circle_pattern.global_position)
-        #print(choice)
-
-func Delay():
-    CanSpawn = false
-    $Timer.set_wait_time(Spawn_Delay)
-    $Timer.start()
-
-func _on_timer_timeout() -> void:
-    CanSpawn = true
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_od3m6"]
 size = Vector2(32, 32)
 
 [node name="game" type="Node2D"]
-script = SubResource("GDScript_od3m6")
+script = ExtResource("1_vhr6a")
 Spawn_Delay = 10.0
 
 [node name="Player" parent="." instance=ExtResource("2_vhr6a")]
