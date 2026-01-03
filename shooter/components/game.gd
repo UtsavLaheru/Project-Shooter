@@ -2,8 +2,8 @@ extends Node2D
 
 var x_axis : int
 var patterns_x_axis : int
-var Enemy = preload("res://enemy.tscn")
-var Circle_Pattern = preload("res://Circle_Pattern.tscn")
+@export var Enemy:PackedScene = preload("res://components/enemy.tscn")
+@export var Circle_Pattern_enemy:PackedScene = preload("res://components/Circle_Pattern.tscn")
 var min_Spawn_Point
 var max_Spawn_Point
 var patterns_min_Spawn_Point
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
 	#choice = randi_range(0,3)
 	choice = 1
-	#patterṇns_x_axis = patterns_min_Spawn_Point
+	#patterns_x_axis = patterns_min_Spawn_Point
 	#random_spawn2 = Vector2(patterns_x_axis, $Pattern_Spawn_Point.position.y)
 	Spawn()
 	#print(x_axis)
@@ -41,7 +41,7 @@ func Spawn():
 			Delay()
 			enemy.global_position = random_spawn
 		elif choice == 1:
-			var circle_pattern = Circle_Pattern.instantiate()
+			var circle_pattern = Circle_Pattern_enemy.instantiate()
 			get_node(".").add_child(circle_pattern)
 			Delay()
 			circle_pattern.global_position = random_spawn2
