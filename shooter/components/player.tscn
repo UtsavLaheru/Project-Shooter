@@ -37,8 +37,12 @@ shape = SubResource("RectangleShape2D_80nbo")
 
 [node name="Player_Health_Component" parent="." instance=ExtResource("3_hqtel")]
 
-[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_sweqy")]
+[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_sweqy")]
 health_component = NodePath("../Player_Health_Component")
+on_hit_invincibility_period = 1.0
+sprite = NodePath("../Icon")
+invincibility_flash_colour = Color(0.8247281, 0.2409682, 0.26656383, 1)
+invincibility_flash_per_second = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("RectangleShape2D_2hs0m")

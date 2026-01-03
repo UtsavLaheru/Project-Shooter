@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=14 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dux6qbnlk8041" path="res://components/audio_manager.gd" id="6_vpik0"]
 [ext_resource type="AudioStream" uid="uid://d4mjhup468t1f" path="res://audio/fire_bullet.tres" id="7_vpik0"]
 [ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
+[ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
+[ext_resource type="AudioStream" uid="uid://bjsxw87bhcr1r" path="res://audio/big_explode.tres" id="10_y7kp8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
 size = Vector2(32, 32)
@@ -24,7 +26,7 @@ Spawn_Delay = 10.0
 
 [node name="Player" parent="." instance=ExtResource("2_vhr6a")]
 position = Vector2(268, 381)
-Bullet = ExtResource("2_748nt")
+bullet_scene = ExtResource("2_748nt")
 
 [node name="PointLight2D-spotlight" parent="Player" index="5"]
 position = Vector2(0, -308)
@@ -79,6 +81,10 @@ color = Color(0.45490196, 0.5372549, 0.6901961, 1)
 script = ExtResource("6_vpik0")
 fireBulletStream = ExtResource("7_vpik0")
 bulletHitStream = ExtResource("8_arvxu")
+playerHitStream = ExtResource("8_kc1m6")
+playerDeathStream = ExtResource("10_y7kp8")
+maxSfxSpeedFactor = 1.02
+minSfxSpeedFactor = 0.98
 
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
