@@ -21,4 +21,4 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 		var attack = Attack.new()
 		attack.attack_damage = enemy_hit_damage
 		hitbox.damage(attack)
-		print(attack.attack_damage)
+		print(hitbox.health_component.health)

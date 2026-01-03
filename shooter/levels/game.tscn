@@ -80,6 +80,7 @@ texture = SubResource("CanvasTexture_cnc74")
 color = Color(0.45490196, 0.5372549, 0.6901961, 1)
 
 [node name="audio_manager" type="Node" parent="." groups=["audio_manager"]]
+process_mode = 4
 script = ExtResource("6_vpik0")
 fireBulletStream = ExtResource("7_vpik0")
 bulletHitStream = ExtResource("8_arvxu")
