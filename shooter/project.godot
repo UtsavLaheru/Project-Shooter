@@ -35,6 +35,9 @@ folder_colors={
 [global_group]
 
 audio_manager=""
+Pattern_Enemies="For Deleting The whole pattern"
+Single_Parent_Enemies="For Deleting Single Parent Enemies."
+PowerUps="For Deleting Power_Up's Pickup's"
 
 [input]
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxw7ijkw1n7vt"]
+[gd_scene load_steps=9 format=3 uid="uid://dxw7ijkw1n7vt"]
 
-[ext_resource type="Script" uid="uid://b3pt04sgp6j2o" path="res://swingy_enemy.gd" id="1_6ipo4"]
+[ext_resource type="Script" uid="uid://b3pt04sgp6j2o" path="res://components/swingy_enemy.gd" id="1_6ipo4"]
 [ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_fqoid"]
-[ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://health_component.tscn" id="3_kfkac"]
-[ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://hitbox_component.tscn" id="4_f4owh"]
+[ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_kfkac"]
+[ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_f4owh"]
+[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="5_oxooa"]
+[ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="6_l63nq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
 size = Vector2(124, 123)
@@ -11,7 +13,7 @@ size = Vector2(124, 123)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epg4t"]
 size = Vector2(132, 134)
 
-[node name="Swingy_Enemy" type="CharacterBody2D"]
+[node name="Swingy_Enemy" type="CharacterBody2D" groups=["Pattern_Enemies"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 collision_mask = 2
@@ -36,5 +38,12 @@ health_component = NodePath("../Health_Component")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_epg4t")
+
+[node name="PickupSpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("5_oxooa")
+available_pickups = Array[PackedScene]([ExtResource("6_l63nq")])
+pickup_probabilities = Array[float]([0.25])
+no_pickup_probability = 0.75
+metadata/_custom_type_script = "uid://s5errwc15cyb"
 
 [connection signal="area_entered" from="Hitbox_Component" to="." method="_on_hitbox_component_area_entered"]

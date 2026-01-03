@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var player = get_node("/root/game/Player")
 @export var speed: float = 250
-@export var enemydamage:int = 10 
+@export var enemy_hit_damage:int = 10 
 
 func _physics_process(delta: float) -> void:
 	pass
@@ -15,10 +15,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hitbox_component_area_entered(area: Area2D) -> void:
-	pass
-	#if area is HitboxComponent:
-		#var hitbox : HitboxComponent = area
-		#
-		#var attack = Attack.new()
-		#attack.attack_damange = enemydamage
-		#hitbox.damange(attack)
+	if area is HitboxComponent && area.get_parent().name == "Player":
+		var hitbox : HitboxComponent = area
+		#enemy_is_inside_player = true
+		var attack = Attack.new()
+		attack.attack_damage = enemy_hit_damage
+		hitbox.damage(attack)
+		print(hitbox.health_component.health)

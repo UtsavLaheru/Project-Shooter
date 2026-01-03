@@ -14,7 +14,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.83760685, 0.11965812)
 
-[node name="invincibility_pickup" type="Area2D"]
+[node name="invincibility_pickup" type="Area2D" groups=["PowerUps"]]
 script = ExtResource("1_7culd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

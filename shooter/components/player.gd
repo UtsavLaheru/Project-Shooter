@@ -24,7 +24,7 @@ func movement():
 	#Shooting
 	if Input.is_action_pressed("Fire"):
 		if CanShoot == true:
-			$Timer.set_wait_time(fire_rate)	 #Delay Bullet
+			$Timer.set_wait_time(fire_rate)  #Delay Bullet
 			$Timer.start()
 			shoot()
 			CanShoot = false
@@ -36,7 +36,7 @@ func shoot():
 	audio_manager.playFireBulletStream(bullet.global_position)
 
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	movement()
 
 

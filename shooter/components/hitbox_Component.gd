@@ -17,8 +17,8 @@ func _ready() -> void:
 #Note: Please Don't add Collision shape to external scene or instantiate scene directly.
 func damage(attack: Attack):
 	if health_component:
-		if(is_invincible()): return
-
+		if(is_invincible()): 
+			return
 		health_component.damage(attack)
 		if(health_component.health>0):
 			invincibility=on_hit_invincibility_period

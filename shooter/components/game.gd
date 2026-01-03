@@ -4,6 +4,7 @@ var x_axis : int
 var patterns_x_axis : int
 @export var Enemy:PackedScene = preload("res://components/enemy.tscn")
 @export var Circle_Pattern_enemy:PackedScene = preload("res://components/Circle_Pattern.tscn")
+@export var Swingy_Pattern_enemy:PackedScene = preload("res://components/swingy_pattern.tscn")
 var min_Spawn_Point
 var max_Spawn_Point
 var patterns_min_Spawn_Point
@@ -12,7 +13,7 @@ var choice
 var random_spawn
 var random_spawn2
 var CanSpawn: bool = true
-var parent_name
+var parent_group
 var super_parent
 var player:Player
 @export var Spawn_Delay: float = 5
@@ -36,8 +37,11 @@ func Spawn():
 		random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
 		patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
 		random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
+		#This is For Testing in future, We need to make it Time Based Difficulty (Remeber).
 		choice = randi_range(0,3)
+		
 		print(choice)
+		
 		# Choice's System.
 		if choice == 0:
 			var enemy = Enemy.instantiate()
@@ -50,6 +54,11 @@ func Spawn():
 			Delay()
 			circle_pattern.global_position = random_spawn2
 			print(circle_pattern.global_position)
+		elif choice == 2:
+			var swingy_pattern = Swingy_Pattern_enemy.instantiate()
+			get_node(".").add_child(swingy_pattern)
+			Delay()
+			swingy_pattern.global_position = random_spawn2
 		#print(choice)
 
 func Delay():
@@ -61,11 +70,12 @@ func _on_timer_timeout() -> void:
 	CanSpawn = true
 
 
-func _on_out_of_bound_area_entered(area: Area2D) -> void:
-	parent_name = area.get_parent().name
-	if parent_name == "Circle_Enemy":    #use group for adding pattern instead of using "and" operator (Remeber).
-		super_parent = area.get_parent().get_parent().get_parent().get_parent()
-		super_parent.queue_free()
-	area.get_parent().queue_free()
-	
-	
+
+
+
+
+
+#Yeah This Out Bound Of method didn't work.
+#Note:Don't use "area.get_parent().queue_free()" directly (Stupid Me), Alway's use group's for Freeing Stuff.
+#use group for adding pattern instead of using "and" operator (Remeber).
+#Yeah I Remebered

@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://botxu41putvxb"]
+[gd_scene load_steps=9 format=3 uid="uid://exh0cxjpxab3"]
 
-[ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="1_7k104"]
-[ext_resource type="Script" uid="uid://ccp68cfr4oa2c" path="res://components/enemy.gd" id="1_iifgy"]
-[ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="2_qi2p4"]
-[ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="3_iifgy"]
-[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="5_jbwcw"]
-[ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="6_qfxgl"]
+[ext_resource type="Script" uid="uid://ccp68cfr4oa2c" path="res://components/enemy.gd" id="1_yn16k"]
+[ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_se5hy"]
+[ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_kbqlr"]
+[ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_r4u2c"]
+[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="5_0ofq0"]
+[ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="6_5i6km"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
 size = Vector2(124, 123)
@@ -17,22 +17,22 @@ size = Vector2(132, 134)
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("1_iifgy")
+script = ExtResource("1_yn16k")
 speed = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.96515685, 0.31676733, 0, 1)
 self_modulate = Color(0.66705656, 0.63647825, 0.5044998, 1)
-texture = ExtResource("1_7k104")
+texture = ExtResource("2_se5hy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_e2o6t")
 
-[node name="Health_Component" parent="." instance=ExtResource("2_qi2p4")]
+[node name="Health_Component" parent="." instance=ExtResource("3_kbqlr")]
 position = Vector2(334, 186)
 Max_Health = 20
 
-[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_iifgy")]
+[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_r4u2c")]
 health_component = NodePath("../Health_Component")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
@@ -41,8 +41,8 @@ shape = SubResource("RectangleShape2D_epg4t")
 
 [node name="PickupSpawnerComponent" type="Node2D" parent="."]
 position = Vector2(0, -6)
-script = ExtResource("5_jbwcw")
-available_pickups = Array[PackedScene]([ExtResource("6_qfxgl")])
+script = ExtResource("5_0ofq0")
+available_pickups = Array[PackedScene]([ExtResource("6_5i6km")])
 pickup_probabilities = Array[float]([0.25])
 no_pickup_probability = 0.75
 metadata/_custom_type_script = "uid://s5errwc15cyb"
