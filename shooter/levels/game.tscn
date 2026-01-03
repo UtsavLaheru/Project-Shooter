@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0d3n68s8wabo"]
+
+[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
+[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="3_30w35"]
+
+[sub_resource type="GDScript" id="GDScript_od3m6"]
+script/source = "extends Node2D
+
+var x_axis : int
+var patterns_x_axis : int
+@export var Enemy:PackedScene = preload(\"res://components/enemy.tscn\")
+@export var Circle_Pattern_enemy:PackedScene = preload(\"res://components/Circle_Pattern.tscn\")
+var min_Spawn_Point
+var max_Spawn_Point
+var patterns_min_Spawn_Point
+var patterns_max_Spawn_Point
+var choice
+var random_spawn
+var random_spawn2
+var CanSpawn: bool = true
+@export var Spawn_Delay: float = 5
+
+func _ready() -> void:
+	print(\"Keep Going, Keep Going, We'll Keep fight On and On and On\")
+	min_Spawn_Point = $Spawn_Point/min_Spawn_Point.position.x
+	max_Spawn_Point = $Spawn_Point/max_Spawn_Point.position.x
+	patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
+	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
+
+func _process(delta: float) -> void:
+	#x_axis = randi_range(min_Spawn_Point,max_Spawn_Point)
+	#random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
+	patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
+	random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
+	#choice = randi_range(0,3)
+	choice = 1
+	#patterns_x_axis = patterns_min_Spawn_Point
+	#random_spawn2 = Vector2(patterns_x_axis, $Pattern_Spawn_Point.position.y)
+	Spawn()
+	#print(x_axis)
+	
+func Spawn():
+	if CanSpawn == true:
+		if choice == 0:
+			var enemy = Enemy.instantiate()
+			get_node(\".\").add_child(enemy)
+			Delay()
+			enemy.global_position = random_spawn
+		elif choice == 1:
+			var circle_pattern = Circle_Pattern_enemy.instantiate()
+			get_node(\".\").add_child(circle_pattern)
+			Delay()
+			circle_pattern.global_position = random_spawn2
+			print(circle_pattern.global_position)
+		#print(choice)
+
+func Delay():
+	CanSpawn = false
+	$Timer.set_wait_time(Spawn_Delay)
+	$Timer.start()
+
+func _on_timer_timeout() -> void:
+	CanSpawn = true
+"
+
+[node name="game" type="Node2D"]
+script = SubResource("GDScript_od3m6")
+Spawn_Delay = 10.0
+
+[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
+position = Vector2(247, 258)
+
+[node name="Timer" type="Timer" parent="Player"]
+
+[node name="Shoot_Point" type="Marker2D" parent="Player"]
+position = Vector2(0, -145)
+
+[node name="Enemy" parent="." instance=ExtResource("3_30w35")]
+process_mode = 4
+position = Vector2(112, 69)
+
+[node name="Spawn_Point" type="Node2D" parent="."]
+position = Vector2(0, -200)
+
+[node name="min_Spawn_Point" type="Marker2D" parent="Spawn_Point"]
+position = Vector2(1, 56)
+
+[node name="max_Spawn_Point" type="Marker2D" parent="Spawn_Point"]
+position = Vector2(800, 56)
+
+[node name="Pattern_Spawn_Point" type="Node2D" parent="."]
+position = Vector2(0, 400)
+
+[node name="min_Spawn_Point" type="Marker2D" parent="Pattern_Spawn_Point"]
+position = Vector2(135, 56)
+
+[node name="max_Spawn_Point" type="Marker2D" parent="Pattern_Spawn_Point"]
+position = Vector2(625, 56)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Player"]

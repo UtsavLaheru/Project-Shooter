@@ -10,7 +10,7 @@ func _physics_process(delta: float) -> void:
 		move_and_collide(Vector2(direction.x,direction.y) * speed * delta)
 		
 	#print(player)
-	move_and_slide()
+	#move_and_slide()
 
 
 func _on_hitbox_component_area_entered(area: Area2D) -> void:

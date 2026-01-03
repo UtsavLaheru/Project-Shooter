@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgesl1cetkga8"]
 
-[ext_resource type="PackedScene" uid="uid://cwaplki22gce7" path="res://circle_enemy's.tscn" id="1_k5iy3"]
-[ext_resource type="Script" uid="uid://br2rft3g5c6yg" path="res://circle_pattern.gd" id="1_yrj5t"]
+[ext_resource type="PackedScene" uid="uid://cwaplki22gce7" path="res://components/circle_enemy's.tscn" id="1_k5iy3"]
+[ext_resource type="Script" uid="uid://br2rft3g5c6yg" path="res://components/circle_pattern.gd" id="1_yrj5t"]
 
 [sub_resource type="Curve2D" id="Curve2D_k5iy3"]
 bake_interval = 0.01

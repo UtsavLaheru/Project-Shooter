@@ -1,16 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0d3n68s8wabo"]
 
-[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://player.tscn" id="1_e2o6t"]
-[ext_resource type="Script" uid="uid://g5l1yyvpma4k" path="res://game.gd" id="1_feb5d"]
-[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://enemy.tscn" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://g5l1yyvpma4k" path="res://components/game.gd" id="1_748nt"]
+[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
+[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="3_30w35"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_feb5d"]
 
 [node name="game" type="Node2D"]
-script = ExtResource("1_feb5d")
+script = ExtResource("1_748nt")
 Spawn_Delay = 10.0
 
-[node name="Player" parent="." instance=ExtResource("1_e2o6t")]
+[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
 position = Vector2(247, 258)
 speed = 385.0
 
@@ -19,7 +19,7 @@ speed = 385.0
 [node name="Shoot_Point" type="Marker2D" parent="Player"]
 position = Vector2(0, -145)
 
-[node name="Enemy" parent="." instance=ExtResource("2_feb5d")]
+[node name="Enemy" parent="." instance=ExtResource("3_30w35")]
 position = Vector2(112, 69)
 
 [node name="Spawn_Point" type="Node2D" parent="."]
