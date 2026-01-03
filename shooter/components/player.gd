@@ -42,3 +42,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	CanShoot = true
+
+
+func _on_player_health_component_destroyed(position: Vector2) -> void:
+	var audio_manager:AudioManager = get_tree().get_first_node_in_group("audio_manager")
+	audio_manager.playPlayerDeathStream(global_position)

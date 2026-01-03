@@ -6,6 +6,7 @@ class_name AudioManager
 @export var bulletHitStream:AudioStream
 @export var playerHitStream:AudioStream
 @export var playerDeathStream:AudioStream
+@export var pickupStream:AudioStream
 
 @export var maxSfxSpeedFactor = 1.01
 @export var minSfxSpeedFactor = 0.99
@@ -43,6 +44,9 @@ func playPlayerHitStream(position:Vector2):
 
 func playPlayerDeathStream(position:Vector2):
 	playStream(playerDeathStream,position,1)
+
+func playPickupStream(position:Vector2):
+	playStream(pickupStream,position,1)
 
 func playStream(stream:AudioStream, position:Vector2, volume:float):
 	var player = availableSfxPlayers.pop_front() as AudioStreamPlayer2D
