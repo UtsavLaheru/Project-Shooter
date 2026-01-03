@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dssyyw7yet5ph"]
+[gd_scene load_steps=14 format=3 uid="uid://dssyyw7yet5ph"]
 
 [ext_resource type="PackedScene" uid="uid://bqtjmmiw7eq4l" path="res://components/bullet.tscn" id="1_j6i7n"]
 [ext_resource type="Texture2D" uid="uid://c8yj6mofbqt33" path="res://sprites/fire-1.png" id="2_c5ngl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://y5e1lc6q2ble" path="res://sprites/fire-3.png" id="4_w3js8"]
 [ext_resource type="Texture2D" uid="uid://cvjpwsq6sen1f" path="res://sprites/fire-4.png" id="5_cs7r8"]
 [ext_resource type="Texture2D" uid="uid://7fc7prd0ndnl" path="res://sprites/fire-5.png" id="6_wkrth"]
+[ext_resource type="Script" uid="uid://6o50qioh0la6" path="res://addons/godot_sfxr/SfxrStreamPlayer.gd" id="7_w3js8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vwitl"]
 size = Vector2(60, 146)
@@ -83,3 +84,33 @@ scale = Vector2(1, 2)
 energy = 2.0
 texture = SubResource("GradientTexture2D_w3js8")
 texture_scale = 1.5
+
+[node name="SfxrStreamPlayer" type="AudioStreamPlayer" parent="." index="4"]
+bus = &"sfx"
+script = ExtResource("7_w3js8")
+wave/type = 3
+sample_params/sound_vol = 0.25
+sample_params/sample_rate = 44100.0
+envelope/attack_time = 0.0
+envelope/sustain_time = 0.22446641623973845
+envelope/punch_time = 0.79560447
+envelope/decay_time = 0.2817981
+frequency/start_frequency = 0.1149510159547452
+frequency/min_freq_cutoff = 0.0
+frequency/slide = -0.2757582485675812
+frequency/delta_slide = 0.0
+vibrato/depth = 0.0
+vibrato/speed = 0.0
+arpeggiation/frequency_mult = 0.7587913990020753
+arpeggiation/change_speed = 0.6041879972442984
+duty_cycle/duty_cycle = 0.0
+duty_cycle/sweep = 0.0
+retrigger/rate = 0.0
+flanger/offset = -0.16802119463682172
+flanger/sweep = -0.037253905
+low_pass_filter/cutoff_frequency = 1.0
+low_pass_filter/cutoff_sweep = 0.0
+low_pass_filter/resonance = 0.0
+high_pass_filter/cutoff_frequency = 0.0
+high_pass_filter/cutoff_sweep = 0.0
+metadata/_custom_type_script = "uid://6o50qioh0la6"

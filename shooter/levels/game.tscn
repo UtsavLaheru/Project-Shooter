@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=12 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
 [ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
 [ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
+[ext_resource type="Script" uid="uid://dux6qbnlk8041" path="res://components/audio_manager.gd" id="6_vpik0"]
+[ext_resource type="AudioStream" uid="uid://d4mjhup468t1f" path="res://audio/fire_bullet.tres" id="7_vpik0"]
+[ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
 size = Vector2(32, 32)
@@ -71,6 +74,11 @@ texture = SubResource("CanvasTexture_cnc74")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.45490196, 0.5372549, 0.6901961, 1)
+
+[node name="audio_manager" type="Node" parent="." groups=["audio_manager"]]
+script = ExtResource("6_vpik0")
+fireBulletStream = ExtResource("7_vpik0")
+bulletHitStream = ExtResource("8_arvxu")
 
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
