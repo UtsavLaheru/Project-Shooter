@@ -1,25 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=4 format=3 uid="uid://d0d3n68s8wabo"]
 
-[ext_resource type="Script" uid="uid://g5l1yyvpma4k" path="res://components/game.gd" id="1_748nt"]
-[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
-[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="3_30w35"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_feb5d"]
+[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://player.tscn" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://g5l1yyvpma4k" path="res://game.gd" id="1_feb5d"]
+[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://enemy.tscn" id="2_feb5d"]
 
 [node name="game" type="Node2D"]
-script = ExtResource("1_748nt")
+script = ExtResource("1_feb5d")
 Spawn_Delay = 10.0
 
-[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
+[node name="Player" parent="." instance=ExtResource("1_e2o6t")]
 position = Vector2(247, 258)
-speed = 385.0
 
 [node name="Timer" type="Timer" parent="Player"]
 
 [node name="Shoot_Point" type="Marker2D" parent="Player"]
 position = Vector2(0, -145)
 
-[node name="Enemy" parent="." instance=ExtResource("3_30w35")]
+[node name="Enemy" parent="." instance=ExtResource("2_feb5d")]
 position = Vector2(112, 69)
 
 [node name="Spawn_Point" type="Node2D" parent="."]
@@ -43,13 +40,8 @@ position = Vector2(600, 56)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Out_Of_Bound" type="Area2D" parent="."]
-position = Vector2(0, 1400)
-
-[node name="Out_Of_Bound\'s" type="CollisionShape2D" parent="Out_Of_Bound"]
-shape = SubResource("WorldBoundaryShape2D_feb5d")
 
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="area_entered" from="Out_Of_Bound" to="." method="_on_out_of_bound_area_entered"]
 
 [editable path="Player"]
