@@ -1,3 +1,3 @@
 class_name Attack
 
-var attack_damange: int
+var attack_damage: int

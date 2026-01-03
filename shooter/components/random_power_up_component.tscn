@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://edrecxng2y5y"]
 
-[ext_resource type="Script" uid="uid://sjhnqhik1byp" path="res://random_power_up_component.gd" id="1_cup5b"]
-[ext_resource type="PackedScene" uid="uid://cvivpmmlw452g" path="res://speed_power_up.tscn" id="2_tcgjh"]
-[ext_resource type="PackedScene" uid="uid://8u7ufqdnwc2i" path="res://fire_speed_power_up.tscn" id="3_fjcom"]
+[ext_resource type="Script" uid="uid://sjhnqhik1byp" path="res://components/random_power_up_component.gd" id="1_cup5b"]
+[ext_resource type="PackedScene" uid="uid://cvivpmmlw452g" path="res://components/speed_power_up.tscn" id="2_tcgjh"]
+[ext_resource type="PackedScene" path="res://fire_speed_power_up.tscn" id="3_fjcom"]
 
 [node name="Random_PowerUp_Component" type="Node2D"]
 script = ExtResource("1_cup5b")
