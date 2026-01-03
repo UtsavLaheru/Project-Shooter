@@ -4,13 +4,19 @@ extends CharacterBody2D
 var CanShoot: bool = true
 @export var fire_rate: float = 0.5
 const Bullet = preload("res://bullet.tscn")
+var screen_size
 
 func _ready() -> void:
 	print("Bad Apple, Ying and Yang, Good and Bad, Pure and Evil, And Then We Are Here...")
+	screen_size = get_viewport_rect().size
+	print(screen_size)
 
 func movement():
 	velocity = Input.get_vector("Left","Right","Up","Down") * speed
 	move_and_slide()
+	#Clamping the positions So, it doesn't go out of bound.
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 	
 	#Shooting
 	if Input.is_action_pressed("Fire"):

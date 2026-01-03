@@ -12,6 +12,9 @@ var choice
 var random_spawn
 var random_spawn2
 var CanSpawn: bool = true
+var parent_name
+var super_parent
+
 @export var Spawn_Delay: float = 5
 
 func _ready() -> void:
@@ -22,19 +25,19 @@ func _ready() -> void:
 	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
 
 func _process(delta: float) -> void:
-	#x_axis = randi_range(min_Spawn_Point,max_Spawn_Point)
-	#random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
-	patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
-	random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
-	#choice = randi_range(0,3)
-	choice = 1
-	#patterṇns_x_axis = patterns_min_Spawn_Point
-	#random_spawn2 = Vector2(patterns_x_axis, $Pattern_Spawn_Point.position.y)
-	Spawn()
+	if $Player != null:
+		Spawn()
 	#print(x_axis)
 	
 func Spawn():
 	if CanSpawn == true:
+		x_axis = randi_range(min_Spawn_Point,max_Spawn_Point)
+		random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
+		patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
+		random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
+		choice = randi_range(0,3)
+		print(choice)
+		# Choice's System.
 		if choice == 0:
 			var enemy = Enemy.instantiate()
 			get_node(".").add_child(enemy)
@@ -55,3 +58,13 @@ func Delay():
 
 func _on_timer_timeout() -> void:
 	CanSpawn = true
+
+
+func _on_out_of_bound_area_entered(area: Area2D) -> void:
+	parent_name = area.get_parent().name
+	if parent_name == "Circle_Enemy":    #use group for adding pattern instead of using "and" operator (Remeber).
+		super_parent = area.get_parent().get_parent().get_parent().get_parent()
+		super_parent.queue_free()
+	area.get_parent().queue_free()
+	
+	
