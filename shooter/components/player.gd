@@ -1,11 +1,12 @@
 extends CharacterBody2D
-
+class_name Player
 @export var speed :float = 200
 var CanShoot: bool = true
 @export var fire_rate: float = 0.5
-@export var Bullet:PackedScene = preload("res://components/bullet.tscn")
+@export var bullet_scene:PackedScene = preload("res://components/bullet.tscn")
 var screen_size
 var audio_manager:AudioManager
+
 
 func _ready() -> void:
 	print("Bad Apple, Ying and Yang, Good and Bad, Pure and Evil, And Then We Are Here...")
@@ -29,11 +30,12 @@ func movement():
 			CanShoot = false
 
 func shoot():
-	var bullet:Bullet = Bullet.instantiate()
+	var bullet:Bullet = bullet_scene.instantiate()
 	get_node("/root/game").add_child(bullet)
 	bullet.transform = $Shoot_Point.global_transform
 	audio_manager.playFireBulletStream(bullet.global_position)
-	
+
+
 func _physics_process(delta: float) -> void:	
 	movement()
 
