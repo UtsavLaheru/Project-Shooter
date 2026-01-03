@@ -4,7 +4,7 @@ class_name HitboxComponent
 #var invensablitiy = 0.5
 
 #Note: Please Don't add Collison shape to external scence or instiate scence directly.
-func damange(attack: Attack):
+func damage(attack: Attack):
 	if health_component:
 		health_component.damage(attack)
 

@@ -18,8 +18,8 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 		var hitbox : HitboxComponent = area
 		#enemy_is_inside_player = true
 		var attack = Attack.new()
-		attack.attack_damange = enemy_hit_damage
-		hitbox.damange(attack)
+		attack.attack_damage = enemy_hit_damage
+		hitbox.damage(attack)
 		#print(hitbox)
 
 
