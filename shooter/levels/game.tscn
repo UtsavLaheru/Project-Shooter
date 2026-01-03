@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=16 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
 [ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
 [ext_resource type="AudioStream" uid="uid://bjsxw87bhcr1r" path="res://audio/big_explode.tres" id="10_y7kp8"]
+[ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="11_5ycdb"]
 [ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="11_ughyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
@@ -84,6 +85,7 @@ fireBulletStream = ExtResource("7_vpik0")
 bulletHitStream = ExtResource("8_arvxu")
 playerHitStream = ExtResource("8_kc1m6")
 playerDeathStream = ExtResource("10_y7kp8")
+pickupStream = ExtResource("11_5ycdb")
 maxSfxSpeedFactor = 1.02
 minSfxSpeedFactor = 0.98
 
