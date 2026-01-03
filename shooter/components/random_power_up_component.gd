@@ -10,5 +10,5 @@ func MovementIncrease(powerup: PowerUp):
 func FireSpeedIncrease(powerup : PowerUp):
 	powerup.Decrease_FireRate = FireRate_Decreases
 
-if Randomize == 1:
-	pass              #Currently Working On.
+	if Randomize == 1:
+		pass              #Currently Working On.
