@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbtiv84x0inl8"]
+[gd_scene load_steps=17 format=3 uid="uid://bbtiv84x0inl8"]
 
 [ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="1_67mlb"]
 [ext_resource type="Script" uid="uid://dbf6sfshy76ed" path="res://components/boss_enemy.gd" id="2_41vlo"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://hhdtpaeijydj" path="res://components/Bubble_Bullet.tscn" id="3_7dt7x"]
 [ext_resource type="Texture2D" uid="uid://bsf35mrwjne38" path="res://sprites/Spinning Bullet/Spin Bullet4.png" id="3_awc11"]
 [ext_resource type="Script" uid="uid://c4jebcwc7p8px" path="res://components/health_component.gd" id="6_u2hsg"]
+[ext_resource type="Texture2D" uid="uid://bdkjt54mvryha" path="res://sprites/fish enemy/1.png" id="7_e3b45"]
+[ext_resource type="Texture2D" uid="uid://bdm5a3kqjyykh" path="res://sprites/fish enemy/2.png" id="8_p5fiu"]
 
 [sub_resource type="Gradient" id="Gradient_xcfxj"]
 offsets = PackedFloat32Array(0.033573143, 0.41007194, 0.69544363, 1)
@@ -23,6 +25,64 @@ repeat = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dt7x"]
 size = Vector2(126, 124)
 
+[sub_resource type="Animation" id="Animation_vj2yt"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("7_e3b45"), ExtResource("8_p5fiu")]
+}
+
+[sub_resource type="Animation" id="Animation_x3apc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("GradientTexture2D_67mlb")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ohwgr"]
+_data = {
+&"RESET": SubResource("Animation_x3apc"),
+&"idle": SubResource("Animation_vj2yt")
+}
+
+[sub_resource type="Animation" id="Animation_epkwc"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("GradientTexture2D_67mlb")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdleb"]
+_data = {
+&"idle": SubResource("Animation_epkwc")
+}
+
 [node name="BossEnemy" instance=ExtResource("1_67mlb")]
 script = ExtResource("2_41vlo")
 bubble_bullet_scene = ExtResource("3_7dt7x")
@@ -30,10 +90,10 @@ lowest_y_position = 850.0
 minimum_rotation = -50.0
 maximum_rotation = 50.0
 speed = 50.0
+enemy_hit_damage = 50
 
 [node name="Sprite2D" parent="." index="0"]
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
+scale = Vector2(1, 1)
 texture = SubResource("GradientTexture2D_67mlb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" index="0"]
@@ -128,3 +188,13 @@ polygon = PackedVector2Array(68, -64, 68, 30, 194, 32, 192, -100, 352, -114, 350
 script = ExtResource("6_u2hsg")
 Invulnerable = true
 metadata/_custom_type_script = "uid://c4jebcwc7p8px"
+
+[node name="AnimationPlayer" parent="." index="6"]
+process_mode = 4
+active = false
+reset_on_save = false
+libraries = {
+&"": SubResource("AnimationLibrary_ohwgr"),
+&"boss": SubResource("AnimationLibrary_mdleb")
+}
+autoplay = "boss/idle"

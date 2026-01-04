@@ -1,17 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxw7ijkw1n7vt"]
+[gd_scene load_steps=13 format=3 uid="uid://dxw7ijkw1n7vt"]
 
 [ext_resource type="Script" uid="uid://b3pt04sgp6j2o" path="res://components/swingy_enemy.gd" id="1_6ipo4"]
-[ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_fqoid"]
+[ext_resource type="Texture2D" uid="uid://bdkjt54mvryha" path="res://sprites/fish enemy/1.png" id="2_l63nq"]
 [ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_kfkac"]
 [ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_f4owh"]
 [ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="5_oxooa"]
 [ext_resource type="PackedScene" uid="uid://bqc37amdkehp2" path="res://components/invincibility_pickup.tscn" id="6_l63nq"]
+[ext_resource type="Texture2D" uid="uid://bdm5a3kqjyykh" path="res://sprites/fish enemy/2.png" id="7_rp5th"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
 size = Vector2(124, 123)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epg4t"]
 size = Vector2(132, 134)
+
+[sub_resource type="Animation" id="Animation_vj2yt"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_l63nq"), ExtResource("7_rp5th")]
+}
+
+[sub_resource type="Animation" id="Animation_x3apc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_l63nq")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ohwgr"]
+_data = {
+&"RESET": SubResource("Animation_x3apc"),
+&"idle": SubResource("Animation_vj2yt")
+}
 
 [node name="Swingy_Enemy" type="CharacterBody2D" groups=["Pattern_Enemies"]]
 scale = Vector2(0.5, 0.5)
@@ -21,9 +60,8 @@ script = ExtResource("1_6ipo4")
 speed = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.96515685, 0.31676733, 0, 1)
-self_modulate = Color(0.66705656, 0.63647825, 0.5044998, 1)
-texture = ExtResource("2_fqoid")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_l63nq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_e2o6t")
@@ -47,5 +85,11 @@ available_pickups = Array[PackedScene]([ExtResource("6_l63nq")])
 pickup_probabilities = Array[float]([0.25])
 no_pickup_probability = 0.75
 metadata/_custom_type_script = "uid://s5errwc15cyb"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ohwgr")
+}
+autoplay = "idle"
 
 [connection signal="area_entered" from="Hitbox_Component" to="." method="_on_hitbox_component_area_entered"]
