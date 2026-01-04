@@ -26,4 +26,3 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 		if(tree):
 			var audio_manager:AudioManager = tree.get_first_node_in_group("audio_manager")
 			audio_manager.playPlayerHitStream(global_position)
-
