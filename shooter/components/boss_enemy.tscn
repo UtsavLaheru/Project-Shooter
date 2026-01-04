@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbtiv84x0inl8"]
+[gd_scene load_steps=10 format=3 uid="uid://bbtiv84x0inl8"]
 
 [ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="1_67mlb"]
 [ext_resource type="Script" uid="uid://dbf6sfshy76ed" path="res://components/boss_enemy.gd" id="2_41vlo"]
 [ext_resource type="Script" uid="uid://cpnxsvkeasflm" path="res://components/hitbox_Component.gd" id="2_67mlb"]
 [ext_resource type="PackedScene" uid="uid://hhdtpaeijydj" path="res://components/Bubble_Bullet.tscn" id="3_7dt7x"]
 [ext_resource type="Texture2D" uid="uid://bsf35mrwjne38" path="res://sprites/Spinning Bullet/Spin Bullet4.png" id="3_awc11"]
+[ext_resource type="Script" uid="uid://c4jebcwc7p8px" path="res://components/health_component.gd" id="6_u2hsg"]
 
 [sub_resource type="Gradient" id="Gradient_xcfxj"]
 offsets = PackedFloat32Array(0.033573143, 0.41007194, 0.69544363, 1)
@@ -114,9 +115,16 @@ invincibility_flash_colour = Color(0.75, 0.052499995, 0.052499995, 1)
 position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_7dt7x")
 
-[node name="HitboxComponent-invulnerable" type="Area2D" parent="." index="5"]
+[node name="HitboxComponent-invulnerable" type="Area2D" parent="." index="5" node_paths=PackedStringArray("health_component")]
+collision_layer = 4
 script = ExtResource("2_67mlb")
+health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://cpnxsvkeasflm"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent-invulnerable" index="0"]
 polygon = PackedVector2Array(68, -64, 68, 30, 194, 32, 192, -100, 352, -114, 350, 12, 462, 24, 464, 292, 586, 284, 586, 460, 442, 446, 432, 326, 302, 326, 302, 52, 216, 50, 216, 168, 74, 170, 60, 46, -62, 48, -76, 162, -210, 168, -214, 58, -320, 60, -306, 312, -436, 314, -440, 432, -598, 432, -594, 270, -474, 270, -474, 14, -348, 14, -348, -106, -186, -106, -186, 12, -66, 12, -68, -64)
+
+[node name="HealthComponent" type="Node2D" parent="HitboxComponent-invulnerable" index="1"]
+script = ExtResource("6_u2hsg")
+Invulnerable = true
+metadata/_custom_type_script = "uid://c4jebcwc7p8px"
