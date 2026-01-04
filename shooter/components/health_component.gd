@@ -13,9 +13,11 @@ func _ready() -> void:
 
 func damage(attack: Attack):
 	if(Invulnerable): return
-	
+
 	health -= attack.attack_damage
 	
 	if health <= 0:
+		if(!get_parent() is Player):
+			Statistics.kill_count += 1
 		destroyed.emit(global_position)
 		get_parent().queue_free() 

@@ -2,6 +2,9 @@ extends Node2D
 class_name Game
 var x_axis : float
 var patterns_x_axis : float
+@export var end_scene:PackedScene = preload("res://levels/end_game.tscn")
+
+@export_group("Enemies")
 @export var Basic_Enemy:PackedScene = preload("res://components/enemy.tscn")
 @export var Circle_Pattern_enemy:PackedScene = preload("res://components/Circle_Pattern.tscn")
 @export var Swingy_Pattern_enemy:PackedScene = preload("res://components/swingy_pattern.tscn")
@@ -29,6 +32,9 @@ var player:Player
 
 
 func _ready() -> void:
+	Statistics.game_state = Statistics.State.IN_GAME
+	Statistics.kill_count = 0
+	Statistics.shot_count = 0
 	print("Keep Going, Keep Going, We'll Keep fight On and On and On")
 	min_Spawn_Point = $Spawn_Point/min_Spawn_Point.position.x
 	max_Spawn_Point = $Spawn_Point/max_Spawn_Point.position.x
@@ -101,13 +107,19 @@ func _on_timer_timeout() -> void:
 
 
 func win():
+	Statistics.game_state=Statistics.State.WON
 	print_debug("Congratulations, you win!")
+	get_tree().change_scene_to_packed(end_scene)
 
 func bad_ending():
+	Statistics.game_state=Statistics.State.MISSED_BOSS
 	print_debug("you missed the boss")
+	get_tree().change_scene_to_packed(end_scene)
 
 func lose():
+	Statistics.game_state=Statistics.State.DEAD
 	print_debug("you were destroyed")
+	get_tree().change_scene_to_packed(end_scene)
 
 
 

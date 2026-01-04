@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://tb5g3d7xyqta"]
+
+[ext_resource type="Script" uid="uid://deay0cy4hb1wa" path="res://components/end_game.gd" id="1_jxhxv"]
+
+[sub_resource type="Theme" id="Theme_ko6ep"]
+Label/font_sizes/font_size = 24
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+
+[node name="EndGame" type="Control" node_paths=PackedStringArray("success_controls", "failure_controls", "lose_controls")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jxhxv")
+success_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-win")
+failure_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-bad")
+lose_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-died")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ko6ep")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer-win" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label-Win" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-win"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Congratulations!"
+horizontal_alignment = 1
+
+[node name="Label-GoodEnding" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-win"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.55418074, 0.124970175, 1)
+text = "You defeated the boss! Well done for saving us all."
+autowrap_mode = 3
+
+[node name="VBoxContainer-bad" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label-GameOver" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-bad"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Label-BadEnding" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-bad"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.08099998, 0.08099998, 1)
+text = "You nearly made it, but you missed your one shot at the final boss. Maybe next time."
+autowrap_mode = 3
+
+[node name="VBoxContainer-died" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label-GameOver" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-died"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Label-Died" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-died"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9019608, 0.08235294, 0.08235294, 1)
+text = "You were defeated, maybe in another life you will succeed."
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="RetryButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Try again"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/RetryButton" to="." method="_on_retry_button_pressed"]

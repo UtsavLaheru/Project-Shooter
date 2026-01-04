@@ -23,4 +23,5 @@ func shoot():
 		var bullet:Bullet = bullet_scene.instantiate()
 		get_node("/root/game").add_child(bullet)
 		bullet.transform = shoot_point.global_transform
+		Statistics.shot_count += 1
 		audio_manager.playFireBulletStream(bullet.global_position)
