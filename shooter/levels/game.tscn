@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=14 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
-[ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
 [ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
 [ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
@@ -24,17 +23,17 @@ normal_texture = ExtResource("6_cnc74")
 [node name="game" type="Node2D"]
 script = ExtResource("1_vhr6a")
 
-[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
+[node name="Player" parent="." node_paths=PackedStringArray("weapon_components") instance=ExtResource("2_vhr6a")]
 position = Vector2(268, 381)
-bullet_scene = ExtResource("2_748nt")
+weapon_components = {
+0: NodePath("Weapon_Component-fire"),
+1: NodePath("Weapon_Component-missile")
+}
 
 [node name="PointLight2D-spotlight" parent="Player" index="5"]
 position = Vector2(0, -308)
 
 [node name="Timer" type="Timer" parent="Player"]
-
-[node name="Shoot_Point" type="Marker2D" parent="Player"]
-position = Vector2(0, -145)
 
 [node name="Spawn_Point" type="Node2D" parent="."]
 position = Vector2(0, -250)

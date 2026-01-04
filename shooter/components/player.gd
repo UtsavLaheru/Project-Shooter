@@ -3,10 +3,13 @@ class_name Player
 @export var speed :float = 200
 var CanShoot: bool = true
 @export var fire_rate: float = 0.5
-@export var bullet_scene:PackedScene = preload("res://components/bullet.tscn")
+@export var bullet_scene:PackedScene = preload("res://components/fire_bullet.tscn")
+@export var weapon_components:Dictionary[WeaponType,WeaponComponent]
+@export var active_weapon_type = WeaponType.FIRE
 var screen_size
 var audio_manager:AudioManager
 
+enum WeaponType {FIRE,MISSILE}
 
 func _ready() -> void:
 	print("Bad Apple, Ying and Yang, Good and Bad, Pure and Evil, And Then We Are Here...")
@@ -30,13 +33,14 @@ func movement():
 			CanShoot = false
 
 func shoot():
-	var bullet:Bullet = bullet_scene.instantiate()
-	get_node("/root/game").add_child(bullet)
-	bullet.transform = $Shoot_Point.global_transform
-	audio_manager.playFireBulletStream(bullet.global_position)
+	weapon_components[active_weapon_type].shoot()
+	# var bullet:Bullet = bullet_scene.instantiate()
+	# get_node("/root/game").add_child(bullet)
+	# bullet.transform = $Shoot_Point.global_transform
+	# audio_manager.playFireBulletStream(bullet.global_position)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	movement()
 
 
@@ -44,6 +48,5 @@ func _on_timer_timeout() -> void:
 	CanShoot = true
 
 
-func _on_player_health_component_destroyed(position: Vector2) -> void:
-	var audio_manager:AudioManager = get_tree().get_first_node_in_group("audio_manager")
+func _on_player_health_component_destroyed(_position: Vector2) -> void:
 	audio_manager.playPlayerDeathStream(global_position)

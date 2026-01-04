@@ -10,7 +10,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += -transform.y * bullet_speed * delta
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	await get_tree().create_timer(despawn_time).timeout
 	queue_free()
 	

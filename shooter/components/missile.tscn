@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvbmkpa41dshk"]
+
+[ext_resource type="Script" uid="uid://cadmypia8gdf7" path="res://components/missile.gd" id="1_1624o"]
+[ext_resource type="Texture2D" uid="uid://dhkd6ohydybri" path="res://sprites/Missile Bullet/Missle Bullet.png" id="2_ycwxw"]
+[ext_resource type="Texture2D" uid="uid://bye4pc1p4ophu" path="res://sprites/Missile Bullet/Missle Bullet2.png" id="3_bsw42"]
+[ext_resource type="Texture2D" uid="uid://baqnpteg20f7h" path="res://sprites/Missile Bullet/Missle Bullet3.png" id="4_lqvsm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsw42"]
+
+[sub_resource type="Animation" id="Animation_2wjs3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ycwxw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.9999998, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hoxce"]
+resource_name = "fire"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_ycwxw"), ExtResource("3_bsw42"), ExtResource("4_lqvsm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 0), Vector2(0, 0), Vector2(0.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c5otq"]
+_data = {
+&"RESET": SubResource("Animation_2wjs3"),
+&"fire": SubResource("Animation_hoxce")
+}
+
+[node name="Missile" type="Area2D"]
+script = ExtResource("1_1624o")
+bullet_damage = 10000
+despawn_time = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_bsw42")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.9999998, 0)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_ycwxw")
+flip_v = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_c5otq")
+}
+autoplay = "fire"
