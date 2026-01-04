@@ -12,3 +12,7 @@ func _process(delta: float) -> void:
 	$Path2D/PathFollow2D6.progress_ratio += speed * delta
 	$Path2D/PathFollow2D7.progress_ratio += speed * delta
 	position += transform.y * move_speed * delta
+
+
+func _on_queue_free_component_delete_yourself() -> void:
+	queue_free()

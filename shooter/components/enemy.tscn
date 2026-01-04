@@ -49,4 +49,3 @@ metadata/_custom_type_script = "uid://s5errwc15cyb"
 
 [connection signal="destroyed" from="Health_Component" to="PickupSpawnerComponent" method="spawn_pickup"]
 [connection signal="area_entered" from="Hitbox_Component" to="." method="_on_hitbox_component_area_entered"]
-[connection signal="area_exited" from="Hitbox_Component" to="." method="_on_hitbox_component_area_exited"]

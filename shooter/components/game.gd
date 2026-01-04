@@ -5,6 +5,7 @@ var patterns_x_axis : int
 @export var Enemy:PackedScene = preload("res://components/enemy.tscn")
 @export var Circle_Pattern_enemy:PackedScene = preload("res://components/Circle_Pattern.tscn")
 @export var Swingy_Pattern_enemy:PackedScene = preload("res://components/swingy_pattern.tscn")
+@export var Shooting_Enemy:PackedScene = preload("res://components/Shooting_enemy.tscn")
 var min_Spawn_Point
 var max_Spawn_Point
 var patterns_min_Spawn_Point
@@ -59,6 +60,11 @@ func Spawn():
 			get_node(".").add_child(swingy_pattern)
 			Delay()
 			swingy_pattern.global_position = random_spawn2
+		elif choice == 3:
+			var shooting_enemy = Shooting_Enemy.instantiate()
+			get_node(".").add_child(shooting_enemy)
+			Delay()
+			shooting_enemy.global_position = random_spawn
 		#print(choice)
 
 func Delay():

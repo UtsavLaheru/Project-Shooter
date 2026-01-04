@@ -17,3 +17,7 @@ func _process(delta: float) -> void:
 		target = 0
 	
 	position += transform.y * move_speed * delta
+
+
+func _on_queue_free_component_delete_yourself() -> void:
+	queue_free()
