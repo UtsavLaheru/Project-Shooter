@@ -17,6 +17,9 @@ func _ready() -> void:
 	print(screen_size)
 	audio_manager = get_tree().get_first_node_in_group("audio_manager")
 
+func switch_weapon(new_weapon:WeaponType):
+	active_weapon_type = new_weapon
+	
 func movement():
 	velocity = Input.get_vector("Left","Right","Up","Down") * speed
 	move_and_slide()

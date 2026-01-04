@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Enemy
 @onready var player = get_node("/root/game/Player")
 @export var speed: float = 250
 @export var enemy_hit_damage:int = 10
@@ -8,7 +9,7 @@ func _physics_process(delta: float) -> void:
 	if player != null:
 		var direction = (player.global_position - global_position).normalized()
 		move_and_collide(Vector2(direction.x,direction.y) * speed * delta)
-		look_at(to_global(to_local(player.global_position).rotated(PI/2)))
+		look_at(to_global(to_local(player.global_position).rotated(-PI/2)))
 	#print(player)
 	#move_and_slide()
 
