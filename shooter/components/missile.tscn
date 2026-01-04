@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bye4pc1p4ophu" path="res://sprites/Missile Bullet/Missle Bullet2.png" id="3_bsw42"]
 [ext_resource type="Texture2D" uid="uid://baqnpteg20f7h" path="res://sprites/Missile Bullet/Missle Bullet3.png" id="4_lqvsm"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsw42"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bsw42"]
+radius = 128.0
 
 [sub_resource type="Animation" id="Animation_2wjs3"]
 length = 0.001
@@ -71,12 +72,13 @@ _data = {
 }
 
 [node name="Missile" type="Area2D"]
+collision_mask = 4
 script = ExtResource("1_1624o")
 bullet_damage = 10000
 despawn_time = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_bsw42")
+shape = SubResource("CircleShape2D_bsw42")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.9999998, 0)
@@ -89,3 +91,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_c5otq")
 }
 autoplay = "fire"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

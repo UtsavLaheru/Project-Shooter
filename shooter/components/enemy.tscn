@@ -16,7 +16,7 @@ size = Vector2(132, 134)
 [node name="Enemy" type="CharacterBody2D" groups=["Single_Parent_Enemies"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_iifgy")
 speed = 200.0
 
@@ -32,6 +32,7 @@ shape = SubResource("RectangleShape2D_e2o6t")
 Max_Health = 20
 
 [node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("3_iifgy")]
+collision_layer = 4
 health_component = NodePath("../Health_Component")
 on_hit_invincibility_period = 0.1
 sprite = NodePath("../Sprite2D")
