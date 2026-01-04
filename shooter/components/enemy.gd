@@ -22,6 +22,8 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 		attack.attack_damage = enemy_hit_damage
 		hitbox.damage(attack)
 		print(hitbox.health_component.health)
-		var audio_manager:AudioManager = get_tree().get_first_node_in_group("audio_manager")
-		audio_manager.playPlayerHitStream(global_position)
+		var tree = get_tree()
+		if(tree):
+			var audio_manager:AudioManager = tree.get_first_node_in_group("audio_manager")
+			audio_manager.playPlayerHitStream(global_position)
 

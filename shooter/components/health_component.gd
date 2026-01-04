@@ -19,5 +19,7 @@ func damage(attack: Attack):
 	if health <= 0:
 		if(!get_parent() is Player):
 			Statistics.kill_count += 1
+		else:
+			Statistics.game_state=Statistics.State.DEAD
 		destroyed.emit(global_position)
 		get_parent().queue_free() 

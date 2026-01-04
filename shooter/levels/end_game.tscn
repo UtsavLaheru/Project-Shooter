@@ -1,15 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://tb5g3d7xyqta"]
+[gd_scene load_steps=5 format=3 uid="uid://tb5g3d7xyqta"]
 
 [ext_resource type="Script" uid="uid://deay0cy4hb1wa" path="res://components/end_game.gd" id="1_jxhxv"]
+[ext_resource type="Texture2D" uid="uid://q4nbol72j8db" path="res://sprites/parallax layers/bottom.png" id="2_iw057"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw057"]
+atlas = ExtResource("2_iw057")
+region = Rect2(280.647, 580.484, 800, 900)
 
 [sub_resource type="Theme" id="Theme_ko6ep"]
-Label/font_sizes/font_size = 24
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 30
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 
-[node name="EndGame" type="Control" node_paths=PackedStringArray("success_controls", "failure_controls", "lose_controls")]
+[node name="EndGame" type="Control" node_paths=PackedStringArray("success_controls", "failure_controls", "lose_controls", "statistics_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +26,15 @@ script = ExtResource("1_jxhxv")
 success_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-win")
 failure_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-bad")
 lose_controls = NodePath("MarginContainer/VBoxContainer/VBoxContainer-died")
+statistics_label = NodePath("MarginContainer/VBoxContainer/StatisticsLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1800.0
+offset_bottom = 2000.0
+texture = SubResource("AtlasTexture_iw057")
+expand_mode = 5
+stretch_mode = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -37,14 +52,16 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Label-Win" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-win"]
+visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.64705884, 0.92156863, 0.32941177, 1)
+theme_override_font_sizes/font_size = 96
 text = "Congratulations!"
 horizontal_alignment = 1
 
 [node name="Label-GoodEnding" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-win"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.55418074, 0.124970175, 1)
+theme_override_colors/font_color = Color(0.64522666, 0.92, 0.33120003, 1)
 text = "You defeated the boss! Well done for saving us all."
 autowrap_mode = 3
 
@@ -53,13 +70,14 @@ layout_mode = 2
 
 [node name="Label-GameOver" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-bad"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.9490196, 0.16862746, 0.02745098, 1)
+theme_override_font_sizes/font_size = 96
 text = "Game Over"
 horizontal_alignment = 1
 
 [node name="Label-BadEnding" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-bad"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.08099998, 0.08099998, 1)
+theme_override_colors/font_color = Color(0.95, 0.16672498, 0.028499972, 1)
 text = "You nearly made it, but you missed your one shot at the final boss. Maybe next time."
 autowrap_mode = 3
 
@@ -68,13 +86,14 @@ layout_mode = 2
 
 [node name="Label-GameOver" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-died"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.9490196, 0.16862746, 0.02745098, 1)
+theme_override_font_sizes/font_size = 96
 text = "Game Over"
 horizontal_alignment = 1
 
 [node name="Label-Died" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer-died"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9019608, 0.08235294, 0.08235294, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.16862746, 0.02745098, 1)
 text = "You were defeated, maybe in another life you will succeed."
 autowrap_mode = 3
 
@@ -89,5 +108,10 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Try again"
+
+[node name="StatisticsLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shots fired: 100
+Enemies killed: 10"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/RetryButton" to="." method="_on_retry_button_pressed"]

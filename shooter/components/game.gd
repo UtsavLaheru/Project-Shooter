@@ -109,17 +109,17 @@ func _on_timer_timeout() -> void:
 func win():
 	Statistics.game_state=Statistics.State.WON
 	print_debug("Congratulations, you win!")
-	get_tree().change_scene_to_packed(end_scene)
+	get_tree().change_scene_to_packed.call_deferred(end_scene)
 
 func bad_ending():
 	Statistics.game_state=Statistics.State.MISSED_BOSS
 	print_debug("you missed the boss")
-	get_tree().change_scene_to_packed(end_scene)
+	get_tree().change_scene_to_packed.call_deferred(end_scene)
 
 func lose():
 	Statistics.game_state=Statistics.State.DEAD
 	print_debug("you were destroyed")
-	get_tree().change_scene_to_packed(end_scene)
+	get_tree().change_scene_to_packed.call_deferred(end_scene)
 
 
 

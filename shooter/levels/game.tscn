@@ -1,10 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=18 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
+[ext_resource type="Texture2D" uid="uid://c64uo2ure2wna" path="res://sprites/parallax layers/3.png" id="5_5ycdb"]
 [ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
+[ext_resource type="Texture2D" uid="uid://dfsk607s84ocx" path="res://sprites/parallax layers/2.png" id="6_6f163"]
 [ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
 [ext_resource type="Script" uid="uid://dux6qbnlk8041" path="res://components/audio_manager.gd" id="6_vpik0"]
+[ext_resource type="Texture2D" uid="uid://7buhfodp5ys6" path="res://sprites/parallax layers/1.png" id="7_p0d6h"]
 [ext_resource type="AudioStream" uid="uid://d4mjhup468t1f" path="res://audio/fire_bullet.tres" id="7_vpik0"]
 [ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
 [ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
@@ -66,16 +69,37 @@ shape = SubResource("RectangleShape2D_vhr6a")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pickup"]
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Parallax2D-bottom" type="Parallax2D" parent="."]
 z_index = -2
-repeat_size = Vector2(1024, 1024)
+repeat_size = Vector2(1800, 2000)
 autoscroll = Vector2(0, 64)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D-bottom"]
+visible = false
 material = SubResource("CanvasItemMaterial_cnc74")
 position = Vector2(512, 512)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("CanvasTexture_cnc74")
+
+[node name="Sprite2D-bottom" type="Sprite2D" parent="Parallax2D-bottom"]
+texture = ExtResource("5_5ycdb")
+
+[node name="Parallax2D-2" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.6039216)
+z_index = -2
+repeat_size = Vector2(1800, 2000)
+autoscroll = Vector2(0, 128)
+
+[node name="Sprite2D-2" type="Sprite2D" parent="Parallax2D-2"]
+texture = ExtResource("6_6f163")
+
+[node name="Parallax2D-1" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.44705883)
+z_index = -2
+repeat_size = Vector2(1800, 2000)
+
+[node name="Sprite2D-1" type="Sprite2D" parent="Parallax2D-1"]
+texture = ExtResource("7_p0d6h")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.45490196, 0.5372549, 0.6901961, 1)
@@ -93,7 +117,7 @@ minSfxSpeedFactor = 0.98
 [node name="weapon_pickup" parent="." instance=ExtResource("11_ughyh")]
 position = Vector2(448, 301)
 
-[connection signal="destroyed" from="Player/Player_Health_Component" to="." method="lose"]
+[connection signal="destroyed" from="Player/Player_Health_Component" to="." method="lose" unbinds=1]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemyBossSpawnTimer" to="." method="Spawn_Boss"]

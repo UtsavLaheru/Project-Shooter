@@ -23,8 +23,11 @@ func damage(attack: Attack):
 		if(health_component.health>0):
 			invincibility=on_hit_invincibility_period
 		if(get_parent() is Player):
-			var audio_manager:AudioManager = get_tree().get_first_node_in_group("audio_manager")
-			audio_manager.playPlayerHitStream(global_position)
+			var tree = get_tree()
+			if(tree):
+				var audio_manager:AudioManager = tree.get_first_node_in_group("audio_manager")
+				audio_manager.playPlayerHitStream(global_position)
+		
 
 func _process(delta: float) -> void:
 	if(invincibility>0):
