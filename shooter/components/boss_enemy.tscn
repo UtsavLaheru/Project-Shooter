@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbtiv84x0inl8"]
+[gd_scene load_steps=9 format=3 uid="uid://bbtiv84x0inl8"]
 
 [ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="1_67mlb"]
+[ext_resource type="Script" uid="uid://dbf6sfshy76ed" path="res://components/boss_enemy.gd" id="2_41vlo"]
 [ext_resource type="Script" uid="uid://cpnxsvkeasflm" path="res://components/hitbox_Component.gd" id="2_67mlb"]
 
 [sub_resource type="Gradient" id="Gradient_xcfxj"]
@@ -31,6 +32,7 @@ fill_from = Vector2(0.4957265, 0.42450142)
 size = Vector2(126, 124)
 
 [node name="BossEnemy" instance=ExtResource("1_67mlb")]
+script = ExtResource("2_41vlo")
 speed = 20.0
 
 [node name="Sprite2D" parent="." index="0"]

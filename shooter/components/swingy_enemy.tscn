@@ -29,7 +29,6 @@ texture = ExtResource("2_fqoid")
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Health_Component" parent="." instance=ExtResource("3_kfkac")]
-position = Vector2(334, 186)
 Max_Health = 10
 
 [node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_f4owh")]
