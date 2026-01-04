@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://73yxcydd32bt" path="res://components/Swingy_pattern.gd" id="1_lh3vn"]
 [ext_resource type="PackedScene" uid="uid://dxw7ijkw1n7vt" path="res://components/swingy_enemy.tscn" id="2_2uex8"]
-[ext_resource type="PackedScene" uid="uid://cnaatehpfeifl" path="res://components/queue_free_component.tscn" id="3_6emfc"]
+[ext_resource type="PackedScene" path="res://components/queue_free_component.tscn" id="3_6emfc"]
 
 [sub_resource type="Curve2D" id="Curve2D_mq577"]
 _data = {
