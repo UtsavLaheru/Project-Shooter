@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhkd6ohydybri"
-path="res://.godot/imported/Missle Bullet.png-ad0e9bdd46c9437dd06fa3f6e3dab1cb.ctex"
+uid="uid://1op3peyf2f6f"
+path="res://.godot/imported/Spin Bullet.png-bc4646710d353204fd95b64524ea8478.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Missle Bullet's/Missle Bullet.png"
-dest_files=["res://.godot/imported/Missle Bullet.png-ad0e9bdd46c9437dd06fa3f6e3dab1cb.ctex"]
+source_file="res://sprites/Spinning Bullet/Spin Bullet.png"
+dest_files=["res://.godot/imported/Spin Bullet.png-bc4646710d353204fd95b64524ea8478.ctex"]
 
 [params]
 

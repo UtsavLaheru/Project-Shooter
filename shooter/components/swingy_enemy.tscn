@@ -15,8 +15,8 @@ size = Vector2(132, 134)
 
 [node name="Swingy_Enemy" type="CharacterBody2D" groups=["Pattern_Enemies"]]
 scale = Vector2(0.5, 0.5)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_6ipo4")
 speed = 200.0
 
@@ -29,11 +29,13 @@ texture = ExtResource("2_fqoid")
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Health_Component" parent="." instance=ExtResource("3_kfkac")]
-position = Vector2(334, 186)
 Max_Health = 10
 
-[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_f4owh")]
+[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_f4owh")]
+collision_layer = 4
 health_component = NodePath("../Health_Component")
+sprite = NodePath("../Sprite2D")
+invincibility_flash_colour = Color(0.75, 0.052499995, 0.052499995, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 1)

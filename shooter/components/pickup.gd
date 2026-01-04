@@ -14,5 +14,5 @@ func _on_body_entered(body: Node2D) -> void:
 func _process(delta: float) -> void:
 	global_position.y += drop_speed * delta
 
-func apply_pickup(player:Player):
+func apply_pickup(_player:Player):
 	pass

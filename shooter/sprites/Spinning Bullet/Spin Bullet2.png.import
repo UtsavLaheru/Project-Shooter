@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1op3peyf2f6f"
-path="res://.godot/imported/Spin Bullet.png-4cb3b821e8634b6fbd3483a4bd91df4a.ctex"
+uid="uid://d3p6k464wtmmq"
+path="res://.godot/imported/Spin Bullet2.png-1afcbc63c218ab07fe0f698ccd1534f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spining Bullet/Spin Bullet.png"
-dest_files=["res://.godot/imported/Spin Bullet.png-4cb3b821e8634b6fbd3483a4bd91df4a.ctex"]
+source_file="res://sprites/Spinning Bullet/Spin Bullet2.png"
+dest_files=["res://.godot/imported/Spin Bullet2.png-1afcbc63c218ab07fe0f698ccd1534f6.ctex"]
 
 [params]
 

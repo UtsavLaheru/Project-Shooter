@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vnycvvlescw8"
-path="res://.godot/imported/Wind Bullet_4.png-5ac0fe8e30957b644a7ac14f53133045.ctex"
+uid="uid://bye4pc1p4ophu"
+path="res://.godot/imported/Missle Bullet2.png-f83903d454ea463af0038bd424207cd5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Wind Bullet/Wind Bullet_4.png"
-dest_files=["res://.godot/imported/Wind Bullet_4.png-5ac0fe8e30957b644a7ac14f53133045.ctex"]
+source_file="res://sprites/Missile Bullet/Missle Bullet2.png"
+dest_files=["res://.godot/imported/Missle Bullet2.png-f83903d454ea463af0038bd424207cd5.ctex"]
 
 [params]
 

@@ -34,11 +34,15 @@ texture = ExtResource("2_se5hy")
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Health_Component" parent="." instance=ExtResource("3_kbqlr")]
-position = Vector2(334, 186)
 Max_Health = 20
 
-[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_r4u2c")]
+[node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_r4u2c")]
+collision_layer = 4
+collision_mask = 5
 health_component = NodePath("../Health_Component")
+on_hit_invincibility_period = 0.1
+sprite = NodePath("../Sprite2D")
+invincibility_flash_colour = Color(0.75, 0.022499979, 0.022499979, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 1)

@@ -42,11 +42,11 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 	
 
 
-func _on_shooting_range_area_entered(area: Area2D) -> void:
+func _on_shooting_range_area_entered(_area: Area2D) -> void:
 	Shoot_Player = true
 
 
-func _on_shooting_range_area_exited(area: Area2D) -> void:
+func _on_shooting_range_area_exited(_area: Area2D) -> void:
 	Shoot_Player = false
 
 

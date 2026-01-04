@@ -4,6 +4,7 @@ class_name HealthComponent
 signal destroyed(position:Vector2)
 
 @export var Max_Health : int = 100
+@export var Invulnerable = false
 var health : int
 
 
@@ -11,6 +12,8 @@ func _ready() -> void:
 	health = Max_Health
 
 func damage(attack: Attack):
+	if(Invulnerable): return
+	
 	health -= attack.attack_damage
 	
 	if health <= 0:

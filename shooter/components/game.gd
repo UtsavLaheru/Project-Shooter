@@ -1,16 +1,22 @@
 extends Node2D
-
-var x_axis : int
-var patterns_x_axis : int
-@export var Enemy:PackedScene = preload("res://components/enemy.tscn")
+class_name Game
+var x_axis : float
+var patterns_x_axis : float
+@export var Basic_Enemy:PackedScene = preload("res://components/enemy.tscn")
 @export var Circle_Pattern_enemy:PackedScene = preload("res://components/Circle_Pattern.tscn")
 @export var Swingy_Pattern_enemy:PackedScene = preload("res://components/swingy_pattern.tscn")
 @export var Shooting_Enemy:PackedScene = preload("res://components/Shooting_enemy.tscn")
-var min_Spawn_Point
-var max_Spawn_Point
-var patterns_min_Spawn_Point
-var patterns_max_Spawn_Point
-var choice
+@export var Boss_Enemy:PackedScene = preload("res://components/boss_enemy.tscn")
+
+@onready var Spawn_Point:Node2D = $Spawn_Point
+@onready var enemy_spawn_timer:Timer = $EnemySpawnTimer
+@onready var enemy_boss_spawn_timer:Timer = $EnemyBossSpawnTimer
+
+var min_Spawn_Point:float
+var max_Spawn_Point:float
+var patterns_min_Spawn_Point:float
+var patterns_max_Spawn_Point:float
+var choice:int
 var random_spawn
 var random_spawn2
 var CanSpawn: bool = true
@@ -20,6 +26,9 @@ var player:Player
 @export var Spawn_Delay: float = 5
 @export var increase_difficulty_timer = 600
 var Number_Of_Emeny = 1
+@export var Boss_Spawn_Delay: float = 60
+
+
 
 func _ready() -> void:
 	print("Keep Going, Keep Going, We'll Keep fight On and On and On")
@@ -28,17 +37,32 @@ func _ready() -> void:
 	patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
 	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
 	player = $Player
+	enemy_boss_spawn_timer.wait_time=Boss_Spawn_Delay
+	enemy_boss_spawn_timer.start()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player != null:
 		Spawn()
 	#print(x_axis)
-	
+
+func Spawn_Boss():
+	#don't spawn more enemies while the boss is here
+	enemy_spawn_timer.stop()
+	enemy_boss_spawn_timer.stop()
+	print_debug("spawning boss")
+	#boss is large, so always spawn in the middle
+	var x_pos = (min_Spawn_Point+max_Spawn_Point)/2.0
+	var boss:Enemy = Boss_Enemy.instantiate()
+	boss.global_position=Vector2(x_pos,Spawn_Point.global_position.y)
+	get_node(".").add_child(boss)
+
+
+
 func Spawn():
 	if CanSpawn == true:
-		x_axis = randi_range(min_Spawn_Point,max_Spawn_Point)
-		random_spawn = Vector2(x_axis,$Spawn_Point.position.y)
-		patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
+		x_axis = randf_range(min_Spawn_Point,max_Spawn_Point)
+		random_spawn = Vector2(x_axis,Spawn_Point.position.y)
+		patterns_x_axis = randf_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
 		random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
 		#This is For Testing in future, We need to make it Time Based Difficulty (Remeber).
 		$Timer2.set_wait_time(increase_difficulty_timer)
@@ -50,7 +74,7 @@ func Spawn():
 		
 		# Choice's System.
 		if choice == 0:
-			var enemy = Enemy.instantiate()
+			var enemy = Basic_Enemy.instantiate()
 			get_node(".").add_child(enemy)
 			Delay()
 			enemy.global_position = random_spawn
@@ -74,14 +98,21 @@ func Spawn():
 
 func Delay():
 	CanSpawn = false
-	$Timer.set_wait_time(Spawn_Delay)
-	$Timer.start()
+	enemy_spawn_timer.set_wait_time(Spawn_Delay)
+	enemy_spawn_timer.start()
 
 func _on_timer_timeout() -> void:
 	CanSpawn = true
 
 
+func win():
+	print_debug("Congratulations, you win!")
 
+func bad_ending():
+	print_debug("you missed the boss")
+
+func lose():
+	print_debug("you were destroyed")
 
 
 
