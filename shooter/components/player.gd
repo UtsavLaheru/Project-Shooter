@@ -39,10 +39,6 @@ func movement():
 
 func shoot():
 	weapon_components[active_weapon_type].shoot()
-	# var bullet:Bullet = bullet_scene.instantiate()
-	# get_node("/root/game").add_child(bullet)
-	# bullet.transform = $Shoot_Point.global_transform
-	# audio_manager.playFireBulletStream(bullet.global_position)
 
 
 func _physics_process(_delta: float) -> void:

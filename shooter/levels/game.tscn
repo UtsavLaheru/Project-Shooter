@@ -93,6 +93,7 @@ minSfxSpeedFactor = 0.98
 [node name="weapon_pickup" parent="." instance=ExtResource("11_ughyh")]
 position = Vector2(448, 301)
 
+[connection signal="destroyed" from="Player/Player_Health_Component" to="." method="lose"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemyBossSpawnTimer" to="." method="Spawn_Boss"]

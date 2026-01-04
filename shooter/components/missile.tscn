@@ -75,7 +75,7 @@ _data = {
 collision_mask = 4
 script = ExtResource("1_1624o")
 bullet_damage = 10000
-despawn_time = 5
+despawn_time = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bsw42")

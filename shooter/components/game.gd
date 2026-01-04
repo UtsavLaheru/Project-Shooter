@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name Game
 var x_axis : float
 var patterns_x_axis : float
 @export var Basic_Enemy:PackedScene = preload("res://components/enemy.tscn")
@@ -100,7 +100,14 @@ func _on_timer_timeout() -> void:
 	CanSpawn = true
 
 
+func win():
+	print_debug("Congratulations, you win!")
 
+func bad_ending():
+	print_debug("you missed the boss")
+
+func lose():
+	print_debug("you were destroyed")
 
 
 
