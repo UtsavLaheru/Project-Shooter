@@ -1,102 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqtjmmiw7eq4l"]
+[gd_scene load_steps=5 format=3 uid="uid://bqtjmmiw7eq4l"]
 
-[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="1_omyih"]
-[ext_resource type="Script" uid="uid://cpnxsvkeasflm" path="res://components/hitbox_Component.gd" id="2_lsas8"]
+[ext_resource type="Script" uid="uid://d2555u3q7x6hm" path="res://components/bullet.gd" id="1_v8qja"]
 
-[sub_resource type="Gradient" id="Gradient_xcfxj"]
-offsets = PackedFloat32Array(0.033573143, 0.41007194, 0.69544363, 1)
-colors = PackedColorArray(0.78, 0.015599985, 0.015599985, 1, 0.9863448, 0.6015568, 0.16041657, 1, 1, 0.6403333, 0.17000002, 1, 0.78431374, 0.03137255, 0.015686275, 1)
+[sub_resource type="Gradient" id="Gradient_jdofu"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_67mlb"]
-gradient = SubResource("Gradient_xcfxj")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_omyih"]
+gradient = SubResource("Gradient_jdofu")
 width = 128
 height = 128
 fill = 1
-fill_from = Vector2(0.5, 0.746)
-fill_to = Vector2(0.5, 0.376)
-repeat = 1
+fill_from = Vector2(0.53846157, 0.47008547)
+fill_to = Vector2(0.8433049, 0.13675214)
 
-[sub_resource type="Gradient" id="Gradient_41vlo"]
-offsets = PackedFloat32Array(0, 0.68585134, 1)
-colors = PackedColorArray(0.6983625, 0.4891482, 0.29653528, 1, 1, 0, 0, 1, 0.81235415, 1, 0.78912497, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7oki"]
+size = Vector2(20, 64)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_awc11"]
-gradient = SubResource("Gradient_41vlo")
-width = 128
-height = 128
-fill = 2
-fill_from = Vector2(0.4957265, 0.42450142)
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_v8qja")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dt7x"]
-size = Vector2(126, 124)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.5)
+texture = SubResource("GradientTexture2D_omyih")
 
-[node name="BossEnemy" instance=ExtResource("1_omyih")]
-speed = 20.0
-
-[node name="Sprite2D" parent="." index="0"]
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-texture = SubResource("GradientTexture2D_67mlb")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" index="0"]
-position = Vector2(-132, 96)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D" index="1"]
-position = Vector2(130, 98)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Sprite2D" index="2"]
-position = Vector2(-260, -24)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Sprite2D" index="3"]
-position = Vector2(262, -30)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Sprite2D" index="4"]
-position = Vector2(384, 98)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D7" type="Sprite2D" parent="Sprite2D" index="5"]
-position = Vector2(378, 240)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Sprite2D" index="6"]
-position = Vector2(-390, 94)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D9" type="Sprite2D" parent="Sprite2D" index="7"]
-position = Vector2(-386, 226)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D10" type="Sprite2D" parent="Sprite2D" index="8"]
-position = Vector2(-512, 350)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="Sprite2D11" type="Sprite2D" parent="Sprite2D" index="9"]
-position = Vector2(502, 368)
-texture = SubResource("GradientTexture2D_awc11")
-
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
+shape = SubResource("RectangleShape2D_v7oki")
 
-[node name="Health_Component" parent="." index="2"]
-position = Vector2(0, 0)
-Max_Health = 2000
-
-[node name="Hitbox_Component" parent="." index="3" node_paths=PackedStringArray("sprite")]
-on_hit_invincibility_period = 0.1
-sprite = NodePath("../Sprite2D")
-invincibility_flash_colour = Color(0.75, 0.052499995, 0.052499995, 1)
-
-[node name="CollisionShape2D" parent="Hitbox_Component" index="0"]
-position = Vector2(-3, 0)
-shape = SubResource("RectangleShape2D_7dt7x")
-
-[node name="HitboxComponent" type="Area2D" parent="." index="5"]
-script = ExtResource("2_lsas8")
-metadata/_custom_type_script = "uid://cpnxsvkeasflm"
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" index="0"]
-polygon = PackedVector2Array(68, -64, 68, 30, 194, 32, 192, -100, 326, -102, 328, 24, 448, 24, 450, 300, 566, 302, 566, 432, 438, 434, 438, 306, 314, 306, 314, 40, 196, 44, 198, 162, 66, 166, 70, 60, -72, 38, -68, 162, -196, 162, -198, 40, -322, 40, -322, 292, -448, 292, -448, 414, -578, 414, -578, 284, -456, 284, -456, 30, -328, 24, -326, -88, -198, -88, -194, 20, -66, 24, -68, -64)
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

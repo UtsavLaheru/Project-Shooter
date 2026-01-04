@@ -1,102 +1,94 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=15 format=3 uid="uid://d0d3n68s8wabo"]
 
-[ext_resource type="PackedScene" uid="uid://botxu41putvxb" path="res://components/enemy.tscn" id="1_od3m6"]
-[ext_resource type="Script" uid="uid://cpnxsvkeasflm" path="res://components/hitbox_Component.gd" id="2_748nt"]
+[ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
+[ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
+[ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
+[ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
+[ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
+[ext_resource type="Script" uid="uid://dux6qbnlk8041" path="res://components/audio_manager.gd" id="6_vpik0"]
+[ext_resource type="AudioStream" uid="uid://d4mjhup468t1f" path="res://audio/fire_bullet.tres" id="7_vpik0"]
+[ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
+[ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
+[ext_resource type="AudioStream" uid="uid://bjsxw87bhcr1r" path="res://audio/big_explode.tres" id="10_y7kp8"]
+[ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="11_5ycdb"]
 
-[sub_resource type="Gradient" id="Gradient_xcfxj"]
-offsets = PackedFloat32Array(0.033573143, 0.41007194, 0.69544363, 1)
-colors = PackedColorArray(0.78, 0.015599985, 0.015599985, 1, 0.9863448, 0.6015568, 0.16041657, 1, 1, 0.6403333, 0.17000002, 1, 0.78431374, 0.03137255, 0.015686275, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
+size = Vector2(32, 32)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_67mlb"]
-gradient = SubResource("Gradient_xcfxj")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.746)
-fill_to = Vector2(0.5, 0.376)
-repeat = 1
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cnc74"]
 
-[sub_resource type="Gradient" id="Gradient_41vlo"]
-offsets = PackedFloat32Array(0, 0.68585134, 1)
-colors = PackedColorArray(0.6983625, 0.4891482, 0.29653528, 1, 1, 0, 0, 1, 0.81235415, 1, 0.78912497, 1)
+[sub_resource type="CanvasTexture" id="CanvasTexture_cnc74"]
+diffuse_texture = ExtResource("5_30w35")
+normal_texture = ExtResource("6_cnc74")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_awc11"]
-gradient = SubResource("Gradient_41vlo")
-width = 128
-height = 128
-fill = 2
-fill_from = Vector2(0.4957265, 0.42450142)
+[node name="game" type="Node2D"]
+script = ExtResource("1_vhr6a")
+Spawn_Delay = 10.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dt7x"]
-size = Vector2(126, 124)
+[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
+position = Vector2(268, 381)
+bullet_scene = ExtResource("2_748nt")
 
-[node name="BossEnemy" instance=ExtResource("1_od3m6")]
-speed = 20.0
+[node name="PointLight2D-spotlight" parent="Player" index="5"]
+position = Vector2(0, -308)
 
-[node name="Sprite2D" parent="." index="0"]
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-texture = SubResource("GradientTexture2D_67mlb")
+[node name="Timer" type="Timer" parent="Player"]
 
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" index="0"]
-position = Vector2(-132, 96)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="Shoot_Point" type="Marker2D" parent="Player"]
+position = Vector2(0, -145)
 
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D" index="1"]
-position = Vector2(130, 98)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="Spawn_Point" type="Node2D" parent="."]
+position = Vector2(0, -200)
 
-[node name="Sprite2D4" type="Sprite2D" parent="Sprite2D" index="2"]
-position = Vector2(-260, -24)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="min_Spawn_Point" type="Marker2D" parent="Spawn_Point"]
+position = Vector2(1, 56)
 
-[node name="Sprite2D5" type="Sprite2D" parent="Sprite2D" index="3"]
-position = Vector2(262, -30)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="max_Spawn_Point" type="Marker2D" parent="Spawn_Point"]
+position = Vector2(800, 56)
 
-[node name="Sprite2D6" type="Sprite2D" parent="Sprite2D" index="4"]
-position = Vector2(384, 98)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="Pattern_Spawn_Point" type="Node2D" parent="."]
+position = Vector2(0, -329)
 
-[node name="Sprite2D7" type="Sprite2D" parent="Sprite2D" index="5"]
-position = Vector2(378, 240)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="min_Spawn_Point" type="Marker2D" parent="Pattern_Spawn_Point"]
+position = Vector2(300, 0)
 
-[node name="Sprite2D8" type="Sprite2D" parent="Sprite2D" index="6"]
-position = Vector2(-390, 94)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="max_Spawn_Point" type="Marker2D" parent="Pattern_Spawn_Point"]
+position = Vector2(400, 0)
 
-[node name="Sprite2D9" type="Sprite2D" parent="Sprite2D" index="7"]
-position = Vector2(-386, 226)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="Timer" type="Timer" parent="."]
 
-[node name="Sprite2D10" type="Sprite2D" parent="Sprite2D" index="8"]
-position = Vector2(-512, 350)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="Pickup" type="Area2D" parent="."]
 
-[node name="Sprite2D11" type="Sprite2D" parent="Sprite2D" index="9"]
-position = Vector2(502, 368)
-texture = SubResource("GradientTexture2D_awc11")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup"]
+shape = SubResource("RectangleShape2D_vhr6a")
 
-[node name="CollisionShape2D" parent="." index="1"]
-visible = false
+[node name="Sprite2D" type="Sprite2D" parent="Pickup"]
 
-[node name="Health_Component" parent="." index="2"]
-position = Vector2(0, 0)
-Max_Health = 2000
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -2
+repeat_size = Vector2(1024, 1024)
+autoscroll = Vector2(0, 64)
 
-[node name="Hitbox_Component" parent="." index="3" node_paths=PackedStringArray("sprite")]
-on_hit_invincibility_period = 0.1
-sprite = NodePath("../Sprite2D")
-invincibility_flash_colour = Color(0.75, 0.052499995, 0.052499995, 1)
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+material = SubResource("CanvasItemMaterial_cnc74")
+position = Vector2(512, 512)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("CanvasTexture_cnc74")
 
-[node name="CollisionShape2D" parent="Hitbox_Component" index="0"]
-position = Vector2(-3, 0)
-shape = SubResource("RectangleShape2D_7dt7x")
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.45490196, 0.5372549, 0.6901961, 1)
 
-[node name="HitboxComponent" type="Area2D" parent="." index="5"]
-script = ExtResource("2_748nt")
-metadata/_custom_type_script = "uid://cpnxsvkeasflm"
+[node name="audio_manager" type="Node" parent="." groups=["audio_manager"]]
+script = ExtResource("6_vpik0")
+fireBulletStream = ExtResource("7_vpik0")
+bulletHitStream = ExtResource("8_arvxu")
+playerHitStream = ExtResource("8_kc1m6")
+playerDeathStream = ExtResource("10_y7kp8")
+pickupStream = ExtResource("11_5ycdb")
+maxSfxSpeedFactor = 1.02
+minSfxSpeedFactor = 0.98
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" index="0"]
-polygon = PackedVector2Array(68, -64, 68, 30, 194, 32, 192, -100, 326, -102, 328, 24, 448, 24, 450, 300, 566, 302, 566, 432, 438, 434, 438, 306, 314, 306, 314, 40, 196, 44, 198, 162, 66, 166, 70, 60, -72, 38, -68, 162, -196, 162, -198, 40, -322, 40, -322, 292, -448, 292, -448, 414, -578, 414, -578, 284, -456, 284, -456, 30, -328, 24, -326, -88, -198, -88, -194, 20, -66, 24, -68, -64)
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Player"]
