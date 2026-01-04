@@ -6,3 +6,7 @@ func apply_pickup(player:Player):
 		hitbox_component.invincibility += invincibility_period
 	else:
 		print_debug("invalid/missing player variable passed to invincibility pickup")
+
+
+func _on_queue_free_component_delete_yourself() -> void:
+	queue_free()

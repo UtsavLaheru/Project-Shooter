@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://exh0cxjpxab3"]
+[gd_scene load_steps=10 format=3 uid="uid://exh0cxjpxab3"]
 
-[ext_resource type="Script" uid="uid://ccp68cfr4oa2c" path="res://components/enemy.gd" id="1_yn16k"]
+[ext_resource type="Script" uid="uid://c7icwcu30n67t" path="res://components/shooting_enemy.gd" id="1_yn16k"]
 [ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_se5hy"]
 [ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_kbqlr"]
 [ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_r4u2c"]
@@ -13,7 +13,12 @@ size = Vector2(124, 123)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epg4t"]
 size = Vector2(132, 134)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Single_Parent_Enemies"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yn16k"]
+size = Vector2(352, 595)
+
+[node name="Shooting_Enemy" type="CharacterBody2D" groups=["Single_Parent_Enemies"]]
+modulate = Color(0.29030934, 0.80212677, 3.85046e-07, 1)
+self_modulate = Color(0.14687055, 0.5804207, 1.92523e-07, 1)
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 4
@@ -47,6 +52,19 @@ pickup_probabilities = Array[float]([0.25])
 no_pickup_probability = 0.75
 metadata/_custom_type_script = "uid://s5errwc15cyb"
 
+[node name="Shooting_Range" type="Area2D" parent="."]
+
+[node name="Shoot_range" type="CollisionShape2D" parent="Shooting_Range"]
+position = Vector2(6, -226)
+shape = SubResource("RectangleShape2D_yn16k")
+
+[node name="Shoot_Point" type="Marker2D" parent="."]
+position = Vector2(0, -145)
+
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="destroyed" from="Health_Component" to="PickupSpawnerComponent" method="spawn_pickup"]
 [connection signal="area_entered" from="Hitbox_Component" to="." method="_on_hitbox_component_area_entered"]
-[connection signal="area_exited" from="Hitbox_Component" to="." method="_on_hitbox_component_area_exited"]
+[connection signal="area_entered" from="Shooting_Range" to="." method="_on_shooting_range_area_entered"]
+[connection signal="area_exited" from="Shooting_Range" to="." method="_on_shooting_range_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

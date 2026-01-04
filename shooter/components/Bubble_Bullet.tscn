@@ -1,16 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://dssyyw7yet5ph"]
+[gd_scene load_steps=15 format=3 uid="uid://hhdtpaeijydj"]
 
-[ext_resource type="PackedScene" uid="uid://bqtjmmiw7eq4l" path="res://components/bullet.tscn" id="1_j6i7n"]
-[ext_resource type="Texture2D" uid="uid://c8yj6mofbqt33" path="res://sprites/fire-1.png" id="2_c5ngl"]
-[ext_resource type="Texture2D" uid="uid://rrrawj151oxf" path="res://sprites/fire-2.png" id="3_lf4bf"]
-[ext_resource type="Texture2D" uid="uid://y5e1lc6q2ble" path="res://sprites/fire-3.png" id="4_w3js8"]
-[ext_resource type="Texture2D" uid="uid://cvjpwsq6sen1f" path="res://sprites/fire-4.png" id="5_cs7r8"]
-[ext_resource type="Texture2D" uid="uid://7fc7prd0ndnl" path="res://sprites/fire-5.png" id="6_wkrth"]
-[ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="7_cs7r8"]
-[ext_resource type="Script" uid="uid://6o50qioh0la6" path="res://addons/godot_sfxr/SfxrStreamPlayer.gd" id="7_w3js8"]
+[ext_resource type="PackedScene" uid="uid://bqtjmmiw7eq4l" path="res://components/bullet.tscn" id="1_nw3qt"]
+[ext_resource type="Script" uid="uid://cb3mr65s5f4w3" path="res://components/bubble_bullet.gd" id="2_ncp2t"]
+[ext_resource type="Texture2D" uid="uid://d1sidqn1yw7xt" path="res://Bubble Bullet/Bubble Bullet.png" id="4_en5q8"]
+[ext_resource type="Texture2D" uid="uid://cwxpkd1f0cx5v" path="res://Bubble Bullet/Bubble Bullet2.png" id="5_en5q8"]
+[ext_resource type="Texture2D" uid="uid://hgyhg5yxq1rl" path="res://Bubble Bullet/Bubble Bullet3.png" id="6_en5q8"]
+[ext_resource type="Texture2D" uid="uid://d4lqrs5giacbn" path="res://Bubble Bullet/Bubble Bullet4.png" id="7_ncp2t"]
+[ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="7_wr2vh"]
+[ext_resource type="Script" uid="uid://6o50qioh0la6" path="res://addons/godot_sfxr/SfxrStreamPlayer.gd" id="8_macxt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwitl"]
-size = Vector2(60, 146)
+[sub_resource type="CircleShape2D" id="CircleShape2D_nw3qt"]
+radius = 54.0
 
 [sub_resource type="Animation" id="Animation_nubb0"]
 length = 0.001
@@ -24,13 +24,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_c5ngl")]
+"values": [ExtResource("7_ncp2t")]
 }
 
 [sub_resource type="Animation" id="Animation_kbxcp"]
 resource_name = "fire"
 length = 0.4
-loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -39,10 +38,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.3),
+"times": PackedFloat32Array(0, 0.1, 0.20038348, 0.29993165),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("3_lf4bf"), ExtResource("4_w3js8"), ExtResource("5_cs7r8"), ExtResource("6_wkrth")]
+"values": [ExtResource("4_en5q8"), ExtResource("5_en5q8"), ExtResource("6_en5q8"), ExtResource("7_ncp2t")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8cfyy"]
@@ -52,26 +51,27 @@ _data = {
 }
 
 [sub_resource type="Gradient" id="Gradient_lf4bf"]
-colors = PackedColorArray(1, 0.68, 0.7440001, 1, 0, 0, 0, 1)
+colors = PackedColorArray(3.9948522e-06, 0.4853471, 0.56169045, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_w3js8"]
 gradient = SubResource("Gradient_lf4bf")
 fill = 1
-fill_from = Vector2(0.5, 0.5)
+fill_from = Vector2(0.4906542, 0.46728972)
 fill_to = Vector2(0.84045583, 0.18803419)
 
-[node name="FireBullet" instance=ExtResource("1_j6i7n")]
+[node name="Bubble_Bullet" instance=ExtResource("1_nw3qt")]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("2_ncp2t")
 
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(1, 1, 1, 1)
-position = Vector2(-5, -22)
+position = Vector2(-2.0000005, 0)
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_c5ngl")
+texture = ExtResource("7_ncp2t")
 flip_v = true
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, -7)
-shape = SubResource("RectangleShape2D_vwitl")
+shape = SubResource("CircleShape2D_nw3qt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 libraries = {
@@ -80,16 +80,16 @@ libraries = {
 autoplay = "fire"
 
 [node name="PointLight2D" type="PointLight2D" parent="." index="3"]
-position = Vector2(0, -46)
-scale = Vector2(1, 2)
+position = Vector2(0, -30)
+scale = Vector2(1.5, 1)
 energy = 2.0
 texture = SubResource("GradientTexture2D_w3js8")
 texture_scale = 1.5
 
 [node name="SfxrStreamPlayer" type="AudioStreamPlayer" parent="." index="4"]
-stream = ExtResource("7_cs7r8")
+stream = ExtResource("7_wr2vh")
 bus = &"sfx"
-script = ExtResource("7_w3js8")
+script = ExtResource("8_macxt")
 wave/type = 1
 sample_params/sound_vol = 0.25
 sample_params/sample_rate = 44100.0
