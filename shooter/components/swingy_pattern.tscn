@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://rk5jmky1a5wm"]
+[gd_scene load_steps=5 format=3 uid="uid://rk5jmky1a5wm"]
 
 [ext_resource type="Script" uid="uid://73yxcydd32bt" path="res://components/Swingy_pattern.gd" id="1_lh3vn"]
 [ext_resource type="PackedScene" uid="uid://dxw7ijkw1n7vt" path="res://components/swingy_enemy.tscn" id="2_2uex8"]
+[ext_resource type="PackedScene" uid="uid://cnaatehpfeifl" path="res://components/queue_free_component.tscn" id="3_6emfc"]
 
 [sub_resource type="Curve2D" id="Curve2D_mq577"]
 _data = {
@@ -21,3 +22,7 @@ rotates = false
 loop = false
 
 [node name="Swingy_Enemy" parent="Path2D/PathFollow2D" instance=ExtResource("2_2uex8")]
+
+[node name="Queue_Free_Component" parent="." instance=ExtResource("3_6emfc")]
+
+[connection signal="Delete_Yourself" from="Queue_Free_Component" to="." method="_on_queue_free_component_delete_yourself"]

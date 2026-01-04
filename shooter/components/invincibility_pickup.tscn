@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqc37amdkehp2"]
+[gd_scene load_steps=6 format=3 uid="uid://bqc37amdkehp2"]
 
 [ext_resource type="Script" uid="uid://siq8e2wxfu6t" path="res://components/invincibility_pickup.gd" id="1_7culd"]
+[ext_resource type="PackedScene" uid="uid://cnaatehpfeifl" path="res://components/queue_free_component.tscn" id="2_j2pct"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ycdb"]
 
@@ -23,4 +24,7 @@ shape = SubResource("CircleShape2D_5ycdb")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_6f163")
 
+[node name="Queue_Free_Component" parent="." instance=ExtResource("2_j2pct")]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="Delete_Yourself" from="Queue_Free_Component" to="." method="_on_queue_free_component_delete_yourself"]
