@@ -18,6 +18,8 @@ var parent_group
 var super_parent
 var player:Player
 @export var Spawn_Delay: float = 5
+@export var increase_difficulty_timer = 600
+var Number_Of_Emeny = 1
 
 func _ready() -> void:
 	print("Keep Going, Keep Going, We'll Keep fight On and On and On")
@@ -39,7 +41,10 @@ func Spawn():
 		patterns_x_axis = randi_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
 		random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
 		#This is For Testing in future, We need to make it Time Based Difficulty (Remeber).
-		choice = randi_range(0,3)
+		$Timer2.set_wait_time(increase_difficulty_timer)
+		$Timer2.start()
+		#if $Timer2.time_left <= 
+		choice = randi_range(0,Number_Of_Emeny)
 		
 		print(choice)
 		
@@ -85,3 +90,7 @@ func _on_timer_timeout() -> void:
 #Note:Don't use "area.get_parent().queue_free()" directly (Stupid Me), Alway's use group's for Freeing Stuff.
 #use group for adding pattern instead of using "and" operator (Remeber).
 #Yeah I Remebered
+
+
+func _on_timer_2_timeout() -> void:
+	pass # Replace with function body.

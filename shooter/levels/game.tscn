@@ -92,7 +92,10 @@ minSfxSpeedFactor = 0.98
 script = ExtResource("13_yyd14")
 pickup_probabilities = Array[float]([0.0])
 
+[node name="Timer2" type="Timer" parent="."]
+
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 
 [editable path="Player"]
