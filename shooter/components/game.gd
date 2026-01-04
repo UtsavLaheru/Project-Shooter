@@ -10,6 +10,7 @@ var patterns_x_axis : float
 @export var Swingy_Pattern_enemy:PackedScene = preload("res://components/swingy_pattern.tscn")
 @export var Shooting_Enemy:PackedScene = preload("res://components/Shooting_enemy.tscn")
 @export var Boss_Enemy:PackedScene = preload("res://components/boss_enemy.tscn")
+@export var Missile_Pickup_for_boss:PackedScene = preload("res://components/missile_pickup.tscn")
 
 @onready var Spawn_Point:Node2D = $Spawn_Point
 #@onready var enemy_spawn_timer:Timer = $EnemySpawnTimer
@@ -55,12 +56,17 @@ func _process(_delta: float) -> void:
 
 func Spawn_Boss():
 	#don't spawn more enemies while the boss is here
+	
 	print_debug("spawning boss")
+	$Timer.stop()
 	#boss is large, so always spawn in the middle
 	var x_pos = (min_Spawn_Point+max_Spawn_Point)/2.0
 	var boss:Enemy = Boss_Enemy.instantiate()
 	boss.global_position=Vector2(x_pos,Spawn_Point.global_position.y)
 	get_node(".").add_child(boss)
+	var missile:Node2D = Missile_Pickup_for_boss.instantiate()
+	missile.global_position = player.global_position+Vector2.UP * 256
+	get_node(".").add_child(missile)
 
 
 
