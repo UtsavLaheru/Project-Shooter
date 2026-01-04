@@ -81,8 +81,8 @@ shape = SubResource("RectangleShape2D_epg4t")
 [node name="PickupSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("5_64s1o")
 available_pickups = Array[PackedScene]([ExtResource("6_fwpef")])
-pickup_probabilities = Array[float]([0.25])
-no_pickup_probability = 0.75
+pickup_probabilities = Array[float]([0.1])
+no_pickup_probability = 0.9
 metadata/_custom_type_script = "uid://s5errwc15cyb"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
