@@ -9,6 +9,9 @@ var patterns_x_axis : float
 @export var Boss_Enemy:PackedScene = preload("res://components/boss_enemy.tscn")
 
 @onready var Spawn_Point:Node2D = $Spawn_Point
+@onready var enemy_spawn_timer:Timer = $EnemySpawnTimer
+@onready var enemy_boss_spawn_timer:Timer = $EnemyBossSpawnTimer
+
 var min_Spawn_Point:float
 var max_Spawn_Point:float
 var patterns_min_Spawn_Point:float
@@ -21,6 +24,9 @@ var parent_group
 var super_parent
 var player:Player
 @export var Spawn_Delay: float = 5
+@export var Boss_Spawn_Delay: float = 60
+
+
 
 func _ready() -> void:
 	print("Keep Going, Keep Going, We'll Keep fight On and On and On")
@@ -29,7 +35,8 @@ func _ready() -> void:
 	patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
 	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
 	player = $Player
-	#Spawn_Boss()
+	enemy_boss_spawn_timer.wait_time=Boss_Spawn_Delay
+	enemy_boss_spawn_timer.start()
 
 func _process(_delta: float) -> void:
 	if player != null:
@@ -37,6 +44,10 @@ func _process(_delta: float) -> void:
 	#print(x_axis)
 
 func Spawn_Boss():
+	#don't spawn more enemies while the boss is here
+	enemy_spawn_timer.stop()
+	enemy_boss_spawn_timer.stop()
+	print_debug("spawning boss")
 	#boss is large, so always spawn in the middle
 	var x_pos = (min_Spawn_Point+max_Spawn_Point)/2.0
 	var boss:Enemy = Boss_Enemy.instantiate()
@@ -82,8 +93,8 @@ func Spawn():
 
 func Delay():
 	CanSpawn = false
-	$Timer.set_wait_time(Spawn_Delay)
-	$Timer.start()
+	enemy_spawn_timer.set_wait_time(Spawn_Delay)
+	enemy_spawn_timer.start()
 
 func _on_timer_timeout() -> void:
 	CanSpawn = true

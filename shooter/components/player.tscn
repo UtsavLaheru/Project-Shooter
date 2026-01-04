@@ -83,3 +83,4 @@ infinite_ammo = false
 shoot_point = NodePath("../Shoot_Point")
 
 [connection signal="destroyed" from="Player_Health_Component" to="." method="_on_player_health_component_destroyed"]
+[connection signal="ammo_depleted" from="Weapon_Component-missile" to="." method="switch_weapon" binds= [0]]
