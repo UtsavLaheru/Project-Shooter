@@ -43,8 +43,8 @@ shape = SubResource("RectangleShape2D_epg4t")
 position = Vector2(0, -6)
 script = ExtResource("5_jbwcw")
 available_pickups = Array[PackedScene]([ExtResource("6_qfxgl")])
-pickup_probabilities = Array[float]([0.25])
-no_pickup_probability = 0.75
+pickup_probabilities = Array[float]([0.1])
+no_pickup_probability = 0.9
 metadata/_custom_type_script = "uid://s5errwc15cyb"
 
 [connection signal="destroyed" from="Health_Component" to="PickupSpawnerComponent" method="spawn_pickup"]
