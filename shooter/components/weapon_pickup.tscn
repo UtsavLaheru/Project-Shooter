@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2iyts4vwoub2" path="res://components/weapon_pickup.gd" id="1_k70c1"]
 [ext_resource type="Texture2D" uid="uid://dhkd6ohydybri" path="res://sprites/Missile Bullet/Missle Bullet.png" id="2_usmif"]
-[ext_resource type="PackedScene" path="res://components/queue_free_component.tscn" id="2_vbr6n"]
+[ext_resource type="PackedScene" uid="uid://cnaatehpfeifl" path="res://components/queue_free_component.tscn" id="2_vbr6n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ycdb"]
 

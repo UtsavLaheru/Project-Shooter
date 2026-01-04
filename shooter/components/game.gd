@@ -9,8 +9,8 @@ var patterns_x_axis : float
 @export var Boss_Enemy:PackedScene = preload("res://components/boss_enemy.tscn")
 
 @onready var Spawn_Point:Node2D = $Spawn_Point
-@onready var enemy_spawn_timer:Timer = $EnemySpawnTimer
-@onready var enemy_boss_spawn_timer:Timer = $EnemyBossSpawnTimer
+#@onready var enemy_spawn_timer:Timer = $EnemySpawnTimer
+#@onready var enemy_boss_spawn_timer:Timer = $EnemyBossSpawnTimer
 
 var min_Spawn_Point:float
 var max_Spawn_Point:float
@@ -24,9 +24,9 @@ var parent_group
 var super_parent
 var player:Player
 @export var Spawn_Delay: float = 5
-@export var increase_difficulty_timer = 600
+@export var increase_difficulty_timer:int = 400
 var Number_Of_Emeny = 1
-@export var Boss_Spawn_Delay: float = 60
+#@export var Boss_Spawn_Delay: float = 60
 
 
 
@@ -37,8 +37,10 @@ func _ready() -> void:
 	patterns_min_Spawn_Point = $Pattern_Spawn_Point/min_Spawn_Point.position.x
 	patterns_max_Spawn_Point = $Pattern_Spawn_Point/max_Spawn_Point.position.x
 	player = $Player
-	enemy_boss_spawn_timer.wait_time=Boss_Spawn_Delay
-	enemy_boss_spawn_timer.start()
+	$Timer2.set_wait_time(increase_difficulty_timer)
+	$Timer2.start()
+	#enemy_boss_spawn_timer.wait_time=Boss_Spawn_Delay
+	#enemy_boss_spawn_timer.start()
 
 func _process(_delta: float) -> void:
 	if player != null:
@@ -47,8 +49,6 @@ func _process(_delta: float) -> void:
 
 func Spawn_Boss():
 	#don't spawn more enemies while the boss is here
-	enemy_spawn_timer.stop()
-	enemy_boss_spawn_timer.stop()
 	print_debug("spawning boss")
 	#boss is large, so always spawn in the middle
 	var x_pos = (min_Spawn_Point+max_Spawn_Point)/2.0
@@ -64,12 +64,24 @@ func Spawn():
 		random_spawn = Vector2(x_axis,Spawn_Point.position.y)
 		patterns_x_axis = randf_range(patterns_min_Spawn_Point,patterns_max_Spawn_Point)
 		random_spawn2 = Vector2(patterns_x_axis,$Pattern_Spawn_Point.position.y)
+		$Timer.set_wait_time(Spawn_Delay)
+		$Timer.start()
 		#This is For Testing in future, We need to make it Time Based Difficulty (Remeber).
-		$Timer2.set_wait_time(increase_difficulty_timer)
-		$Timer2.start()
-		#if $Timer2.time_left <= 
-		choice = randi_range(0,Number_Of_Emeny)
+		print("Timer:",$Timer2.time_left)
+		print(increase_difficulty_timer)
+		if $Timer2.time_left <= increase_difficulty_timer and $Timer2.time_left >= increase_difficulty_timer - 100:
+			Number_Of_Emeny = 1
+			#print("Number Of Enemy:",Number_Of_Emeny)
+		elif $Timer2.time_left <= increase_difficulty_timer - 100 and $Timer2.time_left >= increase_difficulty_timer - 200:
+			Number_Of_Emeny = 2
+			#print("Number Of Enemy:",Number_Of_Emeny)
+		elif $Timer2.time_left <= increase_difficulty_timer - 200 and $Timer2.time_left >= increase_difficulty_timer - 350:
+			Number_Of_Emeny = 3
+		elif $Timer2.time_left <= increase_difficulty_timer - 350:
+			$Timer.stop()
+		print("Number Of Enemy:",Number_Of_Emeny)
 		
+		choice = randi_range(0,Number_Of_Emeny)
 		print(choice)
 		
 		# Choice's System.
@@ -98,8 +110,6 @@ func Spawn():
 
 func Delay():
 	CanSpawn = false
-	enemy_spawn_timer.set_wait_time(Spawn_Delay)
-	enemy_spawn_timer.start()
 
 func _on_timer_timeout() -> void:
 	CanSpawn = true
@@ -124,4 +134,4 @@ func lose():
 
 
 func _on_timer_2_timeout() -> void:
-	pass # Replace with function body.
+	Spawn_Boss()
