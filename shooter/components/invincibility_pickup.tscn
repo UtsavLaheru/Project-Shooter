@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqc37amdkehp2"]
+[gd_scene load_steps=11 format=3 uid="uid://bqc37amdkehp2"]
 
 [ext_resource type="Script" uid="uid://siq8e2wxfu6t" path="res://components/invincibility_pickup.gd" id="1_7culd"]
-[ext_resource type="PackedScene" uid="uid://cnaatehpfeifl" path="res://components/queue_free_component.tscn" id="2_j2pct"]
+[ext_resource type="PackedScene" path="res://components/queue_free_component.tscn" id="2_j2pct"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ycdb"]
 
@@ -15,8 +15,40 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.83760685, 0.11965812)
 
+[sub_resource type="Gradient" id="Gradient_ewtim"]
+offsets = PackedFloat32Array(0, 0.96642685)
+colors = PackedColorArray(1, 1, 1, 1, 0.56, 0.56, 0.56, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j2pct"]
+gradient = SubResource("Gradient_ewtim")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.78347576, 0.11965812)
+
+[sub_resource type="Gradient" id="Gradient_1ngd4"]
+offsets = PackedFloat32Array(0, 0.9344729)
+colors = PackedColorArray(0.27999997, 1, 0.952, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g1405"]
+gradient = SubResource("Gradient_1ngd4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_18lbr"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+inherit_velocity_ratio = 1.0
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_g1405")
+
 [node name="invincibility_pickup" type="Area2D" groups=["PowerUps"]]
 script = ExtResource("1_7culd")
+invincibility_period = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5ycdb")
@@ -25,6 +57,12 @@ shape = SubResource("CircleShape2D_5ycdb")
 texture = SubResource("GradientTexture2D_6f163")
 
 [node name="Queue_Free_Component" parent="." instance=ExtResource("2_j2pct")]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+texture = SubResource("GradientTexture2D_j2pct")
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_18lbr")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="Delete_Yourself" from="Queue_Free_Component" to="." method="_on_queue_free_component_delete_yourself"]

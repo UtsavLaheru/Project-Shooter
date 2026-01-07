@@ -1,16 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://fu1amsumtj2d"]
+[gd_scene load_steps=17 format=3 uid="uid://fu1amsumtj2d"]
 
 [ext_resource type="Script" uid="uid://hxsp617al8ub" path="res://components/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://bx1cb1cq3l3sb" path="res://icon.svg" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://d2ys3m7mqd6ft" path="res://sprites/player/player-move-1.png" id="2_couud"]
 [ext_resource type="PackedScene" uid="uid://d31ncn1n0srbn" path="res://components/health_component.tscn" id="3_hqtel"]
 [ext_resource type="PackedScene" uid="uid://cx0vqj0oh2dvt" path="res://components/hitbox_component.tscn" id="4_sweqy"]
 [ext_resource type="Texture2D" uid="uid://4h7x8wfx0dwh" path="res://sprites/lamp-alpha.png" id="5_1kub6"]
+[ext_resource type="Script" uid="uid://60c71hn2prpd" path="res://components/weapon_component.gd" id="6_kuobi"]
+[ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="7_0lm1f"]
+[ext_resource type="PackedScene" uid="uid://dvbmkpa41dshk" path="res://components/missile.tscn" id="8_couud"]
+[ext_resource type="Texture2D" uid="uid://dntwfjsm81sax" path="res://sprites/player/player-move-2.png" id="9_pir3r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
 size = Vector2(124, 123)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
-size = Vector2(128, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_pir3r"]
+radius = 64.0
 
 [sub_resource type="Gradient" id="Gradient_cnc74"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -21,23 +25,92 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8233618, 0.14529915)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_qe8hj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_couud")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mm1xv"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_couud"), ExtResource("9_pir3r")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.011058556, 0.11, 0.29),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1.9999999), Vector2(0, -1.1023755)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eju5v"]
+_data = {
+&"RESET": SubResource("Animation_qe8hj"),
+&"idle": SubResource("Animation_mm1xv")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon_components")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_onrkg")
 speed = 500.0
+weapon_components = {
+0: NodePath("Weapon_Component-fire"),
+1: NodePath("Weapon_Component-missile")
+}
 
 [node name="Icon" type="Sprite2D" parent="."]
 light_mask = 2
 z_index = 1
-texture = ExtResource("2_i3pqv")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_couud")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_80nbo")
 
 [node name="Player_Health_Component" parent="." instance=ExtResource("3_hqtel")]
 
 [node name="Hitbox_Component" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_sweqy")]
+collision_mask = 5
 health_component = NodePath("../Player_Health_Component")
 on_hit_invincibility_period = 1.0
 sprite = NodePath("../Icon")
@@ -45,7 +118,7 @@ invincibility_flash_colour = Color(0.39, 0.39, 0.39, 1)
 invincibility_flash_per_second = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
-shape = SubResource("RectangleShape2D_2hs0m")
+shape = SubResource("CircleShape2D_pir3r")
 
 [node name="PointLight2D-radial" type="PointLight2D" parent="."]
 energy = 2.0
@@ -61,4 +134,25 @@ texture = ExtResource("5_1kub6")
 texture_scale = 6.0
 height = 8.0
 
+[node name="Shoot_Point" type="Marker2D" parent="."]
+position = Vector2(0, -145)
+
+[node name="Weapon_Component-fire" type="Node" parent="." node_paths=PackedStringArray("shoot_point")]
+script = ExtResource("6_kuobi")
+bullet_scene = ExtResource("7_0lm1f")
+shoot_point = NodePath("../Shoot_Point")
+
+[node name="Weapon_Component-missile" type="Node" parent="." node_paths=PackedStringArray("shoot_point")]
+script = ExtResource("6_kuobi")
+bullet_scene = ExtResource("8_couud")
+infinite_ammo = false
+shoot_point = NodePath("../Shoot_Point")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_eju5v")
+}
+autoplay = "idle"
+
 [connection signal="destroyed" from="Player_Health_Component" to="." method="_on_player_health_component_destroyed"]
+[connection signal="ammo_depleted" from="Weapon_Component-missile" to="." method="switch_weapon" binds= [0]]

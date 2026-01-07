@@ -16,7 +16,7 @@ func _ready() -> void:
 func spawn_pickup(spawn_position:Vector2,free_on_finish:bool=false):
 	var roll = randf()*probability_sum
 	var acc=0
-	print_debug("Rolled for pickup with ",roll)
+	#print_debug("Rolled for pickup with ",roll)
 	for i in range(0,pickup_probabilities.size()):
 		acc+=pickup_probabilities[i]
 		if(roll < acc):

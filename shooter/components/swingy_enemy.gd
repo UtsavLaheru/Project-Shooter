@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed: float = 250
 @export var enemy_hit_damage:int = 10 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	pass
 	#if player != null:
 		#var direction = (player.global_position - global_position).normalized()

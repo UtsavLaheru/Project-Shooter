@@ -1,17 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0d3n68s8wabo"]
+[gd_scene load_steps=17 format=3 uid="uid://d0d3n68s8wabo"]
 
 [ext_resource type="Script" uid="uid://fja4xi8osg7i" path="res://components/game.gd" id="1_vhr6a"]
-[ext_resource type="PackedScene" uid="uid://dssyyw7yet5ph" path="res://components/fire_bullet.tscn" id="2_748nt"]
 [ext_resource type="PackedScene" uid="uid://fu1amsumtj2d" path="res://components/player.tscn" id="2_vhr6a"]
+[ext_resource type="Texture2D" uid="uid://c64uo2ure2wna" path="res://sprites/parallax layers/3.png" id="5_5ycdb"]
 [ext_resource type="Texture2D" uid="uid://xj7a58oudr26" path="res://sprites/Stylized_Tiles_1_basecolor.png" id="5_30w35"]
+[ext_resource type="Texture2D" uid="uid://dfsk607s84ocx" path="res://sprites/parallax layers/2.png" id="6_6f163"]
 [ext_resource type="Texture2D" uid="uid://vx7jde0c6on" path="res://sprites/Stylized_Tiles_1_normal.png" id="6_cnc74"]
 [ext_resource type="Script" uid="uid://dux6qbnlk8041" path="res://components/audio_manager.gd" id="6_vpik0"]
+[ext_resource type="Texture2D" uid="uid://7buhfodp5ys6" path="res://sprites/parallax layers/1.png" id="7_p0d6h"]
 [ext_resource type="AudioStream" uid="uid://d4mjhup468t1f" path="res://audio/fire_bullet.tres" id="7_vpik0"]
 [ext_resource type="AudioStream" uid="uid://dokb4n1w852wo" path="res://audio/bullet_hit.tres" id="8_arvxu"]
 [ext_resource type="AudioStream" uid="uid://cb2rdu73x1p5b" path="res://audio/player_hit.tres" id="8_kc1m6"]
 [ext_resource type="AudioStream" uid="uid://bjsxw87bhcr1r" path="res://audio/big_explode.tres" id="10_y7kp8"]
 [ext_resource type="AudioStream" uid="uid://delecvad5rnop" path="res://audio/power_up.tres" id="11_5ycdb"]
-[ext_resource type="Script" uid="uid://s5errwc15cyb" path="res://components/pickup_spawner_component.gd" id="13_yyd14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhr6a"]
 size = Vector2(32, 32)
@@ -25,17 +26,20 @@ normal_texture = ExtResource("6_cnc74")
 [node name="game" type="Node2D"]
 script = ExtResource("1_vhr6a")
 
-[node name="Player" parent="." instance=ExtResource("2_vhr6a")]
+[node name="Player" parent="." node_paths=PackedStringArray("weapon_components") instance=ExtResource("2_vhr6a")]
 position = Vector2(268, 381)
-bullet_scene = ExtResource("2_748nt")
+weapon_components = {
+0: NodePath("Weapon_Component-fire"),
+1: NodePath("Weapon_Component-missile")
+}
+
+[node name="CollisionShape2D" parent="Player/Hitbox_Component" index="0"]
+position = Vector2(-1, 7.5)
 
 [node name="PointLight2D-spotlight" parent="Player" index="5"]
 position = Vector2(0, -308)
 
 [node name="Timer" type="Timer" parent="Player"]
-
-[node name="Shoot_Point" type="Marker2D" parent="Player"]
-position = Vector2(0, -145)
 
 [node name="Spawn_Point" type="Node2D" parent="."]
 position = Vector2(0, -250)
@@ -64,16 +68,37 @@ shape = SubResource("RectangleShape2D_vhr6a")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pickup"]
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Parallax2D-bottom" type="Parallax2D" parent="."]
 z_index = -2
-repeat_size = Vector2(1024, 1024)
+repeat_size = Vector2(1800, 2000)
 autoscroll = Vector2(0, 64)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D-bottom"]
+visible = false
 material = SubResource("CanvasItemMaterial_cnc74")
 position = Vector2(512, 512)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("CanvasTexture_cnc74")
+
+[node name="Sprite2D-bottom" type="Sprite2D" parent="Parallax2D-bottom"]
+texture = ExtResource("5_5ycdb")
+
+[node name="Parallax2D-2" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.6039216)
+z_index = -2
+repeat_size = Vector2(1800, 2000)
+autoscroll = Vector2(0, 128)
+
+[node name="Sprite2D-2" type="Sprite2D" parent="Parallax2D-2"]
+texture = ExtResource("6_6f163")
+
+[node name="Parallax2D-1" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.44705883)
+z_index = -2
+repeat_size = Vector2(1800, 2000)
+
+[node name="Sprite2D-1" type="Sprite2D" parent="Parallax2D-1"]
+texture = ExtResource("7_p0d6h")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.45490196, 0.5372549, 0.6901961, 1)
@@ -88,11 +113,13 @@ pickupStream = ExtResource("11_5ycdb")
 maxSfxSpeedFactor = 1.02
 minSfxSpeedFactor = 0.98
 
-[node name="pickup_spawner_component" type="Node2D" parent="."]
-script = ExtResource("13_yyd14")
-pickup_probabilities = Array[float]([0.0])
+[node name="Timer2" type="Timer" parent="."]
 
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="destroyed" from="Player/Player_Health_Component" to="." method="lose" unbinds=1]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
 [editable path="Player"]
